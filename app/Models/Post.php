@@ -23,4 +23,9 @@ public function comments()
 {
     return $this->hasMany(Comment::class);
 }
+public function isLikedBy($user)
+{
+    return $this->likes()->where('user_id', $user->id)->exists();
+}
+
 }

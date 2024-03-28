@@ -109,7 +109,20 @@ class NewsfeedController extends Controller
     }
 }
     
-    
+//delete post
+public function delete(Post $post)
+{
+    // Check if the user is authorized to delete the post
+    if ($post->user_id !== auth()->id()) {
+        return response()->json(['error' => 'Unauthorized'], 403);
+    }
+
+    // Delete the post
+    $post->delete();
+
+    return response()->json(['success' => true]);
+}
+
     
     
 

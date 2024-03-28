@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/newsfeed/store', [NewsfeedController::class, 'store'])->name('newsfeed.store');
     Route::post('/newsfeed/like', [NewsfeedController::class, 'like'])->name('newsfeed.like');
     Route::post('/newsfeed/comment', [NewsfeedController::class, 'comment'])->name('newsfeed.comment');
+    Route::delete('/newsfeed/delete/{post}', 'App\Http\Controllers\NewsfeedController@delete')->name('newsfeed.delete');
+
 
 });
 
