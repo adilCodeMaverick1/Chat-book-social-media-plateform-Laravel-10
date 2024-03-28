@@ -6,27 +6,61 @@ $posts = Post::get();
 ?>
 
 <x-app-layout>
-    <div class="container-fluid col-lg-6 d-flex justify-content-center align-items-center mt-5">
-        <div class=" central-meta">
-            <div class="new-postbox">
+
+    <div class="container d-flex justify-content-center align-items-center ">
+        <div class="col-lg-2 widget sidebar mt-2 sidebar-1">
+            <ul class="naves">
+                <li>
+                    <i class="fas fa-newspaper"></i>
+                    <a href="/newsfeed" title="">News feed</a>
+                </li>
+                <li>
+                    <i class="fas fa-inbox"></i>
+                    <a href="inbox.html" title="">Inbox</a>
+                </li>
+                <li>
+                    <i class="fas fa-file"></i>
+                    <a href="fav-page.html" title="">My pages</a>
+                </li>
+                <li>
+                    <i class="fas fa-users"></i>
+                    <a href="timeline-friends.html" title="">friends</a>
+                </li>
+                <li>
+                    <i class="fas fa-images"></i>
+                    <a href="timeline-photos.html" title="">images</a>
+                </li>
+                <li>
+                    <i class="fas fa-video"></i>
+                    <a href="timeline-videos.html" title="">videos</a>
+                </li>
+                <li>
+                    <i class="fas fa-comments"></i>
+                    <a href="messages.html" title="">Messages</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class=" central-meta col-lg-6 ">
+            <div class="new-postbox col-md-12">
                 <figure>
                     <img src="images/resources/admin2.jpg" alt="">
                 </figure>
-                <div class="newpst-input">
+                <div class="">
                     <form id="postForm" enctype="multipart/form-data">
 
                         @csrf
-                        <textarea name="content" rows="2" class="form-control" placeholder="write something"></textarea>
+                        <input type ="text" name="content" rows="2" class="form-control rounded-4" placeholder="write something"></input>
                         <div class="attachments">
                             <ul>
                                 <li>
-                                    <i class="fa fa-image"></i>
+                                    <i class="fa fa-image fa-lg"></i>
                                     <label class="fileContainer">
                                         <input type="file" name="image">
                                     </label>
                                 </li>
                                 <li>
-                                    <button type="submit" class="btn btn-primary mt-1">Post</button>
+                                    <button type="submit" class="btn btn-outline-primary mt-1">Post</button>
                                 </li>
                             </ul>
                         </div>
@@ -34,6 +68,10 @@ $posts = Post::get();
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 pack">Discover Our AI Proffesional Pics Pack starting from just 5$/Month 
+            <a href="" class="btn btn-outline-success">Purchase Now</a>
+        </div>
+
     </div>
     <!-- add post new box  end-->
     <div class="notification-panel">
@@ -91,7 +129,7 @@ $posts = Post::get();
                                 @csrf
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
                                 <textarea name="content" rows="2" class="form-control" placeholder="Add a comment"></textarea>
-                                <button type="submit" class="btn btn-primary mt-1"> Comment</button>
+                                <button type="submit" class="btn btn-outline-primary mt-1"> Comment</button>
                             </form>
 
 
@@ -115,10 +153,10 @@ $posts = Post::get();
                     <!-- For example, you can add options like Edit, Delete, etc. -->
                     @if($post->user_id == auth()->id())
                     <ul>
-    <li>
-        <button type="button" class="fa fa-trash text-danger delete-post-btn" data-post-id="{{ $post->id }}">Delete</button>
-    </li>
-</ul>
+                        <li>
+                            <button type="button" class="fa fa-trash text-danger delete-post-btn" data-post-id="{{ $post->id }}">Delete</button>
+                        </li>
+                    </ul>
 
 
                     @else
@@ -133,167 +171,110 @@ $posts = Post::get();
     </div>
 
 
+
 </x-app-layout>
-<style>
-    .btn {
-        background-color: blue;
-    }
-
-    .notification-panel {
-        z-index: 1;
-        /* Ensure it's higher than other elements */
-        position: fixed;
-
-        bottom: 20px;
-        right: 20px;
-        background-color: #3b5998;
-        color: #fff;
-        display: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        transition: transform 0.3s ease-in-out;
-    }
-
-
-    .notification-panel.show {
-        transform: translateY(0);
-    }
-
-    .notification-comment {
-        z-index: 1;
-        /* Ensure it's higher than other elements */
-
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: black;
-        color: wheat;
-        display: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        transition: transform 0.3s ease-in-out;
-    }
-
-
-    .notification-comment.show {
-        transform: translateY(0);
-    }
-
-    /* Default color for the heart icon */
-    .fa-heart {
-        color: black;
-        /* Change this to your default color */
-    }
-
-    /* Red color for the heart icon when liked */
-    .fa-heart.liked {
-        color: red;
-        /* Change this to your liked color */
-    }
-</style>
-
 <script>
-    //post
-    $(document).ready(function() {
-        $('#postForm').submit(function(e) {
-            e.preventDefault(); // Prevent the form from submitting normally
+     //post
+ $(document).ready(function() {
+    $('#postForm').submit(function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
 
-            var formData = new FormData(this); // Create a FormData object from the form
+        var formData = new FormData(this); // Create a FormData object from the form
 
-            $.ajax({
-                url: '{{ route("newsfeed.store") }}',
-                method: 'POST',
-                data: formData,
-                processData: false, // Prevent jQuery from automatically processing the data
-                contentType: false, // Prevent jQuery from setting the content type
-                success: function(response) {
-                    console.log(response); // Log the response from the server
-                    if (response.success) {
-                        // Show the notification panel
-                        $('.notification-panel').css('display', 'block');
-                        setTimeout(function() {
-                            $('.notification-panel').css('display', 'none');
-                        }, 3000); // Hide the panel after 3 seconds
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
+        $.ajax({
+            url: '{{ route("newsfeed.store") }}',
+            method: 'POST',
+            data: formData,
+            processData: false, // Prevent jQuery from automatically processing the data
+            contentType: false, // Prevent jQuery from setting the content type
+            success: function(response) {
+                console.log(response); // Log the response from the server
+                if (response.success) {
+                    // Show the notification panel
+                    $('.notification-panel').css('display', 'block');
+                    setTimeout(function() {
+                        $('.notification-panel').css('display', 'none');
+                    }, 3000); // Hide the panel after 3 seconds
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
         });
     });
-    //like
-    $(document).ready(function() {
-        $('.like-button').click(function() {
-            var postId = $(this).data('post-id');
-            var url = '{{ route("newsfeed.like") }}';
+});
+//like
+$(document).ready(function() {
+    $('.like-button').click(function() {
+        var postId = $(this).data('post-id');
+        var url = '{{ route("newsfeed.like") }}';
 
-            var likeIcon = $(this);
+        var likeIcon = $(this);
 
-            $.ajax({
-                url: url,
-                method: 'POST',
-                data: {
-                    postId: postId,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    if (response.success) {
-                        // Toggle the color of the like button
-                        likeIcon.toggleClass('liked');
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {
+                postId: postId,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Toggle the color of the like button
+                    likeIcon.toggleClass('liked');
 
-                        // Update the like count in the UI
-                        var likeCountElement = likeIcon;
-                        var currentCount = parseInt(likeCountElement.text());
-                        if (likeIcon.hasClass('liked')) {
-                            // Increment like count by 1
-                            likeCountElement.text(currentCount + 1);
-                        } else {
-                            // Decrement like count by 1
-                            likeCountElement.text(currentCount - 1);
-                        }
+                    // Update the like count in the UI
+                    var likeCountElement = likeIcon;
+                    var currentCount = parseInt(likeCountElement.text());
+                    if (likeIcon.hasClass('liked')) {
+                        // Increment like count by 1
+                        likeCountElement.text(currentCount + 1);
+                    } else {
+                        // Decrement like count by 1
+                        likeCountElement.text(currentCount - 1);
                     }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
         });
     });
-    //comment
-    
+});
+//comment
 
-    $(document).ready(function() {
-        $('.commentForm').submit(function(e) {
-            e.preventDefault(); // Prevent the form from submitting normally
 
-            var formData = new FormData(this); // Create a FormData object from the form
+$(document).ready(function() {
+    $('.commentForm').submit(function(e) {
+        e.preventDefault(); // Prevent the form from submitting normally
 
-            $.ajax({
-                url: '{{ route("newsfeed.comment") }}',
-                method: 'POST',
-                data: formData,
-                processData: false, // Prevent jQuery from automatically processing the data
-                contentType: false, // Prevent jQuery from setting the content type
-                success: function(response) {
-                    console.log(response); // Log the response from the server
-                    if (response.success) {
-                        // Show the notification panel
-                        $('.notification-comment').css('display', 'block');
-                        setTimeout(function() {
-                            $('.notification-comment').css('display', 'none');
-                        }, 3000); // Hide the panel after 3 seconds
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    // Show an error message or handle the error
+        var formData = new FormData(this); // Create a FormData object from the form
+
+        $.ajax({
+            url: '{{ route("newsfeed.comment") }}',
+            method: 'POST',
+            data: formData,
+            processData: false, // Prevent jQuery from automatically processing the data
+            contentType: false, // Prevent jQuery from setting the content type
+            success: function(response) {
+                console.log(response); // Log the response from the server
+                if (response.success) {
+                    // Show the notification panel
+                    $('.notification-comment').css('display', 'block');
+                    setTimeout(function() {
+                        $('.notification-comment').css('display', 'none');
+                    }, 3000); // Hide the panel after 3 seconds
                 }
-            });
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+                // Show an error message or handle the error
+            }
         });
     });
-    //delete
-    $(document).ready(function() {
+});
+//delete
+$(document).ready(function() {
     $('.delete-post-btn').click(function() {
         var postId = $(this).data('post-id');
         var url = '/newsfeed/delete/' + postId;
@@ -306,8 +287,8 @@ $posts = Post::get();
             },
             success: function(response) {
                 if (response.success) {
-            alert('Post deleted successfully');    // Post deleted successfully
-                    // You can remove the post from the UI here
+                    window.location.href = '/newsfeed';
+                 
                 } else {
                     // Show an error message or handle the error
                 }
@@ -319,5 +300,29 @@ $posts = Post::get();
     });
 });
 
+//without page load
+// Example using jQuery<script>
+$(document).ready(function() {
+    $('#travelButton').click(function() {
+        $.ajax({
+            url: '{{ route("travel") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                // Update the result div with the response data
+                $('#result').html(response.data);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+});
+</script>
+
+
 
 </script>
+

@@ -8,6 +8,7 @@
         <link href="{{ asset('css/color.css') }}" rel="stylesheet">
         <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.min.css') }}" rel="stylesheet">
+       <script src="{{asset('custom/main.js')}}"></script>
 
         <title>{{ config('app.name', 'Laravel') }}</title>
     

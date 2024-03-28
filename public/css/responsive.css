@@ -1796,5 +1796,9 @@
         width: 100%;
     }
     .apply-bttons > a{font-size: 13px; padding: 8px 14px;}
-
+    @media screen and (max-width: 976px) {
+        .sidebar-1 {
+          display: none;
+        }
+    }
 }

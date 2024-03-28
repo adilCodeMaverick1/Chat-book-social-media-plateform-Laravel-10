@@ -3,6 +3,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\NewsfeedController;
+use App\Http\Controllers\UserController;
+
 use GuzzleHttp\Middleware;
 
 /*
@@ -26,6 +28,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/newsfeed/like', [NewsfeedController::class, 'like'])->name('newsfeed.like');
     Route::post('/newsfeed/comment', [NewsfeedController::class, 'comment'])->name('newsfeed.comment');
     Route::delete('/newsfeed/delete/{post}', 'App\Http\Controllers\NewsfeedController@delete')->name('newsfeed.delete');
+//profile
+Route::get('/search', [UserController::class, 'search'])->name('search');
+//visit profile
+Route::get('/user/{id}', [UserController::class, 'show'])->name('user.profile');
+Route::post('/travel', 'NewsfeedController@travel')->name('travel');
+
 
 
 });

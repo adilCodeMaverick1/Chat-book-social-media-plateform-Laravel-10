@@ -6,7 +6,7 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('newsfeed') }}">
-                      <h1 class="text-gray-400" style="font-size:30px ;">facebook</h1>
+                      <h1 class="text-gray-400" style="font-size:30px ;">Chatbook</h1>
                     </a>
                 </div>
 
@@ -16,7 +16,12 @@
                         {{ __('Newsfeed') }}
                     </x-nav-link>
                 </div>
-                
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex m-2">
+             <form action="{{ route('search') }}" method="GET">
+    <input type="text" name="query" placeholder="Search users..." class="rounded-4">
+    <button type="submit" class="btn btn-outline-dark fa fa-search p-2"></button>
+</form>
+        </div>
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -144,7 +149,8 @@
                 {{ __('Newsfeed') }}
             </x-responsive-nav-link>
         </div>
-
+     
+   
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="flex items-center px-4">
@@ -217,4 +223,6 @@
             </div>
         </div>
     </div>
+    
+
 </nav>

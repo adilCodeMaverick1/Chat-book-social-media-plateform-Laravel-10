@@ -1313,12 +1313,12 @@ header.sticky {
     width: 100%;
 }
 .attachments {
-    border: 1px solid #eee;
+ 
     display: block;
     padding: 10px;
     text-align: right;
     border-top: 0;
-    background: #fff;
+   
 }
 
 .attachments > ul {
@@ -10045,7 +10045,111 @@ aside.sidebar.full-style {
     letter-spacing: 0.5px;
     text-transform: uppercase;
 }
-.btn{
-    background-color: #00bff3;
+
+
+
+
+.notification-panel {
+    z-index: 1;
+    /* Ensure it's higher than other elements */
+    position: fixed;
+
+    bottom: 20px;
+    right: 20px;
+    background-color: #3b5998;
+    color: #fff;
+    display: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
 }
 
+
+.notification-panel.show {
+    transform: translateY(0);
+}
+
+.notification-comment {
+    z-index: 1;
+    /* Ensure it's higher than other elements */
+
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: black;
+    color: wheat;
+    display: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
+}
+
+
+.notification-comment.show {
+    transform: translateY(0);
+}
+
+/* Default color for the heart icon */
+.fa-heart {
+    color: black;
+    /* Change this to your default color */
+}
+
+/* Red color for the heart icon when liked */
+.fa-heart.liked {
+    color: red;
+    /* Change this to your liked color */
+}
+.sidebar ul li {
+padding-top: 200px; 
+color: #3b5998;
+text-decoration: none;
+font-size: large;  
+
+}
+.sidebar ul li a {
+
+color: #3b5998;
+text-decoration: none;
+font-size: large;  
+
+}
+.sidebar ul li a :hover {
+
+color: black;
+text-decoration: none;
+font-size: small;  
+
+}
+.sidebar ul li{
+
+    padding: 10px;
+}
+.sidebar{
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Adds a white shadow */
+        }
+        .pack{
+            background-color: white;
+    border-radius: 10px;
+    height: 200px;
+    font-weight: bold;
+    font-size: medium;
+    margin-left: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Adds a white shadow */
+    color: gray;
+    padding: 30px;
+
+        }
+       
+        .central-meta{
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Adds a white shadow */
+        }
+        @media screen and (max-width: 976px) {
+            .sidebar-1 {
+              display: none;
+            }
+        }

@@ -123,7 +123,16 @@ public function delete(Post $post)
     return response()->json(['success' => true]);
 }
 
-    
+ //example ajax
+ public function travel(Request $request)
+{
+    $data = Post::all();
+
+    // Return the response
+    return view('newsfeed', ['data' => $data]);
+}
+
+   
     
 
 }
