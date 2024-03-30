@@ -3,6 +3,7 @@
 use App\Models\Post;
 
 $posts = Post::get();
+
 ?>
 
 <x-app-layout>
@@ -91,7 +92,7 @@ $posts = Post::get();
                         <div class="d-flex flex-row align-items-center">
                             <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle">
                             <div class="d-flex flex-column ml-2">
-                                <span class="font-weight-bold">{{$post->user->name}}</span>
+                                <span class="font-weight-bold"><a href="{{ route('user.profile', ['id' => $post->user_id]) }}">{{$post->user->name}}</a></span>
                                 <small class="text-primary">Colleagues</small>
                             </div>
                         </div>

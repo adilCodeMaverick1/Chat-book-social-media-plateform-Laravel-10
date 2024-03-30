@@ -7,9 +7,9 @@
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item"><a href="#">User</a></li>
-            <li class="breadcrumb-item active" aria-current="page">User Profile</li>
+            <li class="breadcrumb-item"><a href="/newsfeed">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('user.profile', ['id' => $user->id]) }}">User</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('user.profile', ['id' => $user->id]) }}"> Profile</a></li>
           </ol>
         </nav>
       </div>
@@ -25,8 +25,29 @@
             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
             <div class="d-flex justify-content-center mb-2">
+              @if( Auth::user()->id != Auth::user()->id )
               <button type="button" class="btn btn-outline-primary">Follow</button>
               <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+              @else
+              <form id="postForm" enctype="multipart/form-data">
+
+@csrf
+
+
+    <ul>
+        <li>
+            <i class="fa fa-image fa-lg"></i>
+            <label class="fileContainer">
+                <input type="file" name="image">
+            </label>
+        </li>
+        <li>
+            <button type="submit" class="btn btn-outline-primary mt-1">Post</button>
+        </li>
+    </ul>
+
+</form>
+@endif
             </div>
           </div>
         </div>

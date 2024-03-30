@@ -4,8 +4,7 @@
             {{ __('Profile') }}
         </h2>
     </x-slot>
-   
-
+    <a href="{{ route('user.profile', ['id' => $user->id]) }}" class="btn btn-outline-primary flex-grow-1 m-2">Set up Profile</a>
 
     <div>
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
