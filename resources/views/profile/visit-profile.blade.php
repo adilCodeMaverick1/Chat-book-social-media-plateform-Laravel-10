@@ -25,8 +25,19 @@
             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
             <div class="d-flex justify-content-center mb-2">
-              @if( Auth::user()->id != Auth::user()->id )
-              <button type="button" class="btn btn-outline-primary">Follow</button>
+              @if( Auth::user()->id != $user->id )
+              <!-- // Check if the user is authenticated and not viewing their own profile -->
+              @if(auth()->check() && auth()->user()->id != $user->id) 
+             
+    @if(auth()->user()->following()->where('following_id', $user->id)->exists())
+        <button type="button" class="btn btn-outline-danger unfollow-btn" data-user-id="{{ $user->id }}">Unfollow</button>
+    @else
+        <button type="button" class="btn btn-outline-primary follow-btn" data-user-id="{{ $user->id }}">Follow</button>
+    @endif
+
+
+@endif
+
               <button type="button" class="btn btn-outline-primary ms-1">Message</button>
               @else
               <form id="postForm" enctype="multipart/form-data">
@@ -200,3 +211,65 @@
   </div>
 </section>
 </x-app-layout>
+<script>
+  //follow
+$(document).ready(function(){
+    $('.follow-btn').click(function(){
+        var following_id = $(this).data('user-id');
+        $.ajax({
+            url: '/follow',
+            method: 'POST',
+            data: {
+                following_id: following_id
+            },
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(response){
+                // Handle success response, e.g., update UI
+                console.log(response);
+                if (method === 'POST') {
+                    btn.removeClass('follow-btn').addClass('unfollow-btn').text('follow');
+                } else {
+                    btn.removeClass('unfollow-btn').addClass('follow-btn').text('unfollow');
+                }
+            },
+            error: function(xhr, status, error){
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+//unfollow
+$(document).ready(function(){
+    $('.follow-btn, .unfollow-btn').click(function(){
+        var following_id = $(this).data('user-id');
+        var btn = $(this);
+        var method = btn.hasClass('follow-btn') ? 'POST' : 'DELETE'; // Determine the HTTP method based on the button class
+        $.ajax({
+            url: '/follow',
+            method: method,
+            data: {
+                following_id: following_id
+            },
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            success: function(response){
+                // Handle success response, e.g., update UI
+                console.log(response);
+                if (method === 'POST') {
+                    btn.removeClass('follow-btn').addClass('unfollow-btn').text('Unfollow');
+                } else {
+                    btn.removeClass('unfollow-btn').addClass('follow-btn').text('Follow');
+                }
+            },
+            error: function(xhr, status, error){
+                // Handle error
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>

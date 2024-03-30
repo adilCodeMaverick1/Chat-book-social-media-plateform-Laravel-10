@@ -33,6 +33,10 @@ Route::get('/search', [UserController::class, 'search'])->name('search');
 //visit profile
 Route::get('/user/{id}', [UserController::class, 'show'])->name('user.profile');
 Route::post('/travel', 'NewsfeedController@travel')->name('travel');
+//follow
+Route::post('/follow', [UserController::class, 'follow'])->middleware('auth');
+//unfollow
+Route::delete('/follow', [UserController::class, 'unfollow'])->middleware('auth');
 
 
 
