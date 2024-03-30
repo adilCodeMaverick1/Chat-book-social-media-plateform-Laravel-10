@@ -26,18 +26,20 @@
                 <p class="mb-2 pb-1" style="color: #2b2a2a;">Senior Journalist</p>
                 <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                   style="background-color: #efefef;">
+           
                   <div>
                     <p class="small text-muted mb-1">Posts</p>
                     <p class="mb-0">41</p>
                   </div>
                   <div class="px-3">
                     <p class="small text-muted mb-1">Followers</p>
-                    <p class="mb-0">976</p>
+                    <p class="mb-0"> {{ $followersCount[$user->id] }}</p>
                   </div>
                   <div>
                     <p class="small text-muted mb-1">Following</p>
                     <p class="mb-0">8.5</p>
                   </div>
+           
                 </div>
                 <div class="d-flex pt-1">
                   <button type="button" class="btn btn-outline-primary me-1 flex-grow-1 m-2">Chat</button>
