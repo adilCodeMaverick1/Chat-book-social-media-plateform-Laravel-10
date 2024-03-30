@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -29,11 +30,15 @@ public function search(Request $request)
     $users = User::where('name', 'like', '%' . $query . '%')->get();
 
     $followersCount = [];
+    $followingCount = [];
+    $postCount = [];
     foreach ($users as $user) {
         $followersCount[$user->id] = Follower::where('following_id', $user->id)->count();
+        $followingCount[$user->id] = Follower::where('follower_id', $user->id)->count();
+        $postCount[$user->id] = Post::where('user_id', $user->id)->count();
     }
 
-    return view('profile.searched-profile', compact('users', 'followersCount'));
+    return view('profile.searched-profile', compact('users', 'followersCount','followingCount', 'postCount'));
 }
 //visit profile
 public function show($id)

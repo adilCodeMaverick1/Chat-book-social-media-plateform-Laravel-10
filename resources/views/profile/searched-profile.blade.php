@@ -29,7 +29,7 @@
            
                   <div>
                     <p class="small text-muted mb-1">Posts</p>
-                    <p class="mb-0">41</p>
+                    <p class="mb-0"> {{ $postCount[$user->id] }}</p>
                   </div>
                   <div class="px-3">
                     <p class="small text-muted mb-1">Followers</p>
@@ -37,7 +37,7 @@
                   </div>
                   <div>
                     <p class="small text-muted mb-1">Following</p>
-                    <p class="mb-0">8.5</p>
+                    <p class="mb-0">{{ $followingCount[$user->id] }}</p>
                   </div>
            
                 </div>
