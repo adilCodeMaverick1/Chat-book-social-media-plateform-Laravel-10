@@ -9,6 +9,9 @@
         <link href="{{ asset('css/responsive.css') }}" rel="stylesheet">
         <link href="{{ asset('css/main.min.css') }}" rel="stylesheet">
        <script src="{{asset('jquery/dist/jquery.min.js')}}"></script>
+       <script src="{{asset('js/main.min.js')}}"></script>
+       <script src="{{asset('js/map-init.js')}}"></script>
+       <script src="{{asset('js/script.js')}}"></script>
 
         <title>{{ config('app.name', 'Laravel') }}</title>
     

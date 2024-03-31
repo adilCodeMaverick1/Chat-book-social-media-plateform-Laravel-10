@@ -23,7 +23,7 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/newsfeed', [NewsfeedController::class, 'index'])->name('newsfeed');
+   
     Route::post('/newsfeed/store', [NewsfeedController::class, 'store'])->name('newsfeed.store');
     Route::post('/newsfeed/like', [NewsfeedController::class, 'like'])->name('newsfeed.like');
     Route::post('/newsfeed/comment', [NewsfeedController::class, 'comment'])->name('newsfeed.comment');
@@ -53,8 +53,7 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/newsfeed', function () {
-        return view('newsfeed.index');
-    })->name('newsfeed');
+    Route::get('/newsfeed', [NewsfeedController::class, 'index'])->name('newsfeed');
 });
+
 ?>

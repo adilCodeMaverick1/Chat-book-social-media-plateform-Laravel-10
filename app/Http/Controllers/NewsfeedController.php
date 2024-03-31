@@ -14,17 +14,16 @@ class NewsfeedController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    // public function index(){
-       
-    //     return view('newsfeed.index', [
-    //         'posts' => Post::get(),
-          
-           
-    //     ]);
-          
-            
+    public function index()
+    {
+        $posts = Post::all(); // Or fetch posts based on user interests
+
+
         
-    // }
+        return view('newsfeed.index', ['posts' => $posts]);
+    }
+    
+
     
 
 
