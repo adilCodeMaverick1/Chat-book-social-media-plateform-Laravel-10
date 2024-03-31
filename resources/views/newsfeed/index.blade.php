@@ -51,7 +51,7 @@ $posts = Post::get();
                     <form id="postForm" enctype="multipart/form-data">
 
                         @csrf
-                        <input type ="text" name="content" rows="2" class="form-control rounded-4" placeholder="write something"></input>
+                        <input type="text" name="content" rows="2" class="form-control rounded-4" placeholder="write something"></input>
                         <div class="attachments">
                             <ul>
                                 <li>
@@ -69,7 +69,7 @@ $posts = Post::get();
                 </div>
             </div>
         </div>
-        <div class="col-lg-3 pack">Discover Our AI Proffesional Pics Pack starting from just 5$/Month 
+        <div class="col-lg-3 pack">Discover Our AI Proffesional Pics Pack starting from just 5$/Month
             <a href="" class="btn btn-outline-success">Purchase Now</a>
         </div>
 
@@ -86,11 +86,16 @@ $posts = Post::get();
     <div class="container mt-5 mb-5">
         <div class="row d-flex align-items-center justify-content-center">
             @foreach($posts as $post)
+            <!-- Debugging -->
+
+            <!-- Simplified condition -->
+
+
             <div class="col-md-3">
                 <div class="card">
                     <div class="d-flex justify-content-between p-2 px-3">
                         <div class="d-flex flex-row align-items-center">
-                            <img src="https://i.imgur.com/UXdKE3o.jpg" width="50" class="rounded-circle">
+                            <img src="{{$post->user->image}}" width="30" class="rounded-circle">
                             <div class="d-flex flex-column ml-2">
                                 <span class="font-weight-bold"><a href="{{ route('user.profile', ['id' => $post->user_id]) }}">{{$post->user->name}}</a></span>
                                 <small class="text-primary">Colleagues</small>
@@ -98,9 +103,11 @@ $posts = Post::get();
                         </div>
                         <div class="d-flex flex-row mt-1 ellipsis">
                             <small class="mr-2">{{$post->created_at->diffForHumans()}}</small>
-                            <button type="button" data-bs-toggle="modal" data-bs-target="#postModal">
-                                <i class="fa fa-ellipsis-h"></i>
-                            </button>
+                            @if(auth()->id() == $post->user_id)
+                            <button type="button" class="fa fa-trash text-danger delete-post-btn" data-post-id="{{ $post->id }}"></button>
+                            @else
+                            <button type="button" class="fa fa-warning text-danger report-post-btn" data-post-id="{{ $post->id }}"></button>
+                            @endif
                         </div>
 
                     </div>
@@ -129,7 +136,7 @@ $posts = Post::get();
                             <form class="commentForm" data-post-id="{{ $post->id }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="post_id" value="{{ $post->id }}">
-                                <textarea name="content" rows="2" class="form-control" placeholder="Add a comment"></textarea>
+                                <textarea name="content" rows="2" class="form-control" placeholder="write comment...."></textarea>
                                 <button type="submit" class="btn btn-outline-primary mt-1"> Comment</button>
                             </form>
 
@@ -139,191 +146,164 @@ $posts = Post::get();
                     </div>
                 </div>
             </div>
+           
             @endforeach
         </div>
     </div>
-    <div class="modal fade" id="postModal" tabindex="-1" aria-labelledby="postModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="postModalLabel">Post Options</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Add your modal content here -->
-                    <!-- For example, you can add options like Edit, Delete, etc. -->
-                    @if($post->user_id == auth()->id())
-                    <ul>
-                        <li>
-                            <button type="button" class="fa fa-trash text-danger delete-post-btn" data-post-id="{{ $post->id }}">Delete</button>
-                        </li>
-                    </ul>
 
-
-                    @else
-                    <ul>
-                        <li>Report</li>
-
-                    </ul>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
 </x-app-layout>
 <script>
-     //post
- $(document).ready(function() {
-    $('#postForm').submit(function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
+    //post
+    $(document).ready(function() {
+        $('#postForm').submit(function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
 
-        var formData = new FormData(this); // Create a FormData object from the form
+            var formData = new FormData(this); // Create a FormData object from the form
 
-        $.ajax({
-            url: '{{ route("newsfeed.store") }}',
-            method: 'POST',
-            data: formData,
-            processData: false, // Prevent jQuery from automatically processing the data
-            contentType: false, // Prevent jQuery from setting the content type
-            success: function(response) {
-                console.log(response); // Log the response from the server
-                if (response.success) {
-                    // Show the notification panel
-                    $('.notification-panel').css('display', 'block');
-                    setTimeout(function() {
-                        $('.notification-panel').css('display', 'none');
-                    }, 3000); // Hide the panel after 3 seconds
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    });
-});
-//like
-$(document).ready(function() {
-    $('.like-button').click(function() {
-        var postId = $(this).data('post-id');
-        var url = '{{ route("newsfeed.like") }}';
-
-        var likeIcon = $(this);
-
-        $.ajax({
-            url: url,
-            method: 'POST',
-            data: {
-                postId: postId,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    // Toggle the color of the like button
-                    likeIcon.toggleClass('liked');
-
-                    // Update the like count in the UI
-                    var likeCountElement = likeIcon;
-                    var currentCount = parseInt(likeCountElement.text());
-                    if (likeIcon.hasClass('liked')) {
-                        // Increment like count by 1
-                        likeCountElement.text(currentCount + 1);
-                    } else {
-                        // Decrement like count by 1
-                        likeCountElement.text(currentCount - 1);
+            $.ajax({
+                url: '{{ route("newsfeed.store") }}',
+                method: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from automatically processing the data
+                contentType: false, // Prevent jQuery from setting the content type
+                success: function(response) {
+                    console.log(response); // Log the response from the server
+                    if (response.success) {
+                        // Show the notification panel
+                        $('.notification-panel').css('display', 'block');
+                        setTimeout(function() {
+                            $('.notification-panel').css('display', 'none');
+                        }, 3000); // Hide the panel after 3 seconds
                     }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            });
         });
     });
-});
-//comment
+    //like
+    $(document).ready(function() {
+        $('.like-button').click(function() {
+            var postId = $(this).data('post-id');
+            var url = '{{ route("newsfeed.like") }}';
 
+            var likeIcon = $(this);
 
-$(document).ready(function() {
-    $('.commentForm').submit(function(e) {
-        e.preventDefault(); // Prevent the form from submitting normally
+            $.ajax({
+                url: url,
+                method: 'POST',
+                data: {
+                    postId: postId,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        // Toggle the color of the like button
+                        likeIcon.toggleClass('liked');
 
-        var formData = new FormData(this); // Create a FormData object from the form
-
-        $.ajax({
-            url: '{{ route("newsfeed.comment") }}',
-            method: 'POST',
-            data: formData,
-            processData: false, // Prevent jQuery from automatically processing the data
-            contentType: false, // Prevent jQuery from setting the content type
-            success: function(response) {
-                console.log(response); // Log the response from the server
-                if (response.success) {
-                    // Show the notification panel
-                    $('.notification-comment').css('display', 'block');
-                    setTimeout(function() {
-                        $('.notification-comment').css('display', 'none');
-                    }, 3000); // Hide the panel after 3 seconds
+                        // Update the like count in the UI
+                        var likeCountElement = likeIcon;
+                        var currentCount = parseInt(likeCountElement.text());
+                        if (likeIcon.hasClass('liked')) {
+                            // Increment like count by 1
+                            likeCountElement.text(currentCount + 1);
+                        } else {
+                            // Decrement like count by 1
+                            likeCountElement.text(currentCount - 1);
+                        }
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-                // Show an error message or handle the error
-            }
+            });
         });
     });
-});
-//delete
-$(document).ready(function() {
-    $('.delete-post-btn').click(function() {
-        var postId = $(this).data('post-id');
-        var url = '/newsfeed/delete/' + postId;
+    //comment
 
-        $.ajax({
-            url: url,
-            method: 'DELETE',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                if (response.success) {
-                    window.location.href = '/newsfeed';
-                 
-                } else {
+
+    $(document).ready(function() {
+        $('.commentForm').submit(function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+
+            var formData = new FormData(this); // Create a FormData object from the form
+
+            $.ajax({
+                url: '{{ route("newsfeed.comment") }}',
+                method: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from automatically processing the data
+                contentType: false, // Prevent jQuery from setting the content type
+                success: function(response) {
+                    console.log(response); // Log the response from the server
+                    if (response.success) {
+                        // Show the notification panel
+                        $('.notification-comment').css('display', 'block');
+                        setTimeout(function() {
+                            $('.notification-comment').css('display', 'none');
+                        }, 3000); // Hide the panel after 3 seconds
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
                     // Show an error message or handle the error
                 }
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            });
         });
     });
-});
+    //delete
+    $(document).ready(function() {
+        $('.delete-post-btn').click(function() {
+            var postId = $(this).data('post-id');
+            var url = '/newsfeed/delete/' + postId;
 
-//without page load
-// Example using jQuery<script>
-$(document).ready(function() {
-    $('#travelButton').click(function() {
-        $.ajax({
-            url: '{{ route("travel") }}',
-            method: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                // Update the result div with the response data
-                $('#result').html(response.data);
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            $.ajax({
+                url: url,
+                method: 'DELETE',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    if (response.success) {
+                        window.location.href = '/newsfeed';
+
+                    } else {
+                        // Show an error message or handle the error
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
         });
     });
-});
+
+    //without page load
+    // Example using jQuery<script>
+    $(document).ready(function() {
+        $('#travelButton').click(function() {
+            $.ajax({
+                url: '{{ route("travel") }}',
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    // Update the result div with the response data
+                    $('#result').html(response.data);
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
 </script>
 
 
 
 </script>
-
