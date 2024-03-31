@@ -80,5 +80,31 @@ public function unfollow(Request $request)
 
     return response()->json(['message' => 'Unfollowed successfully']);
 }
+//upload image
+public function store(Request $request)
+{
+    // Validate the form data
+    $request->validate([
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ]);
+$user=  new User();
+    // Get the authenticated user
+    $user = auth()->user();
+
+    // Handle image upload
+    if ($request->hasFile('image')) {
+        $imageName = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/images', $imageName);
+        $user->image = 'storage/images/' . $imageName; // Store the image path in the user's image column
+    }
+
+    // Save the user to update the image
+    if ($user->save()) {
+        return redirect()->back()->with('success', 'Image uploaded successfully.');
+    } else {
+        return redirect()->back()->with('error', 'Failed to upload image.');
+    }
+}
+
 
 }

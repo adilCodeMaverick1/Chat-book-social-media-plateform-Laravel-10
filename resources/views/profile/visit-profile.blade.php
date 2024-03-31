@@ -19,8 +19,15 @@
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
+        <!-- Check if the user has uploaded an image -->
+@if(auth()->user()->image)
+    <!-- Show the user's uploaded image -->
+    <img src="{{ asset(auth()->user()->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+@else
+    <!-- Show a default image if the user has not uploaded one -->
+    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+@endif
+
             <h5 class="my-3"><h1>{{ $user->name }}</h1></h5>
             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
@@ -41,19 +48,16 @@
               <button type="button" class="btn btn-outline-primary ms-1">Message</button>
               @else
               <form id="postForm" enctype="multipart/form-data">
-
 @csrf
-
-
     <ul>
         <li>
             <i class="fa fa-image fa-lg"></i>
-            <label class="fileContainer">
+            <label class="btn btn-outline-danger btn-sm ">
                 <input type="file" name="image">
             </label>
         </li>
         <li>
-            <button type="submit" class="btn btn-outline-primary mt-1">Post</button>
+            <button type="submit" class="btn btn-outline-primary mt-1">uploadImage</button>
         </li>
     </ul>
 
@@ -272,4 +276,33 @@ $(document).ready(function(){
         });
     });
 });
+//upload image
+$(document).ready(function() {
+        $('#postForm').submit(function(e) {
+            e.preventDefault(); // Prevent the form from submitting normally
+
+            var formData = new FormData(this); // Create a FormData object from the form
+
+            $.ajax({
+                url: '{{ route("user.store") }}',
+                method: 'POST',
+                data: formData,
+                processData: false, // Prevent jQuery from automatically processing the data
+                contentType: false, // Prevent jQuery from setting the content type
+                success: function(response) {
+                    console.log(response); // Log the response from the server
+                    if (response.success) {
+                        // Show the notification panel
+                        $('.notification-panel').css('display', 'block');
+                        setTimeout(function() {
+                            $('.notification-panel').css('display', 'none');
+                        }, 3000); // Hide the panel after 3 seconds
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
+    });
 </script>

@@ -38,7 +38,12 @@ Route::post('/follow', [UserController::class, 'follow'])->middleware('auth');
 //unfollow
 Route::delete('/follow', [UserController::class, 'unfollow'])->middleware('auth');
 
-//to show follors count
+//user image upload route
+
+
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+
+
 
 
 });

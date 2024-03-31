@@ -50,8 +50,24 @@ $posts = Post::get();
                 <div class="">
                     <form id="postForm" enctype="multipart/form-data">
 
+
+
                         @csrf
-                        <input type="text" name="content" rows="2" class="form-control rounded-4" placeholder="write something"></input>
+                        <div class="container">
+    <div class="row align-items-center">
+        <div class="col-auto">
+            @if(auth()->user()->image != null)
+                <img src="{{ asset(auth()->user()->image) }}" width="30" class="rounded-circle">
+            @else
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" width="30" class="rounded-circle">
+            @endif
+        </div>
+        <div class="col">
+            <input type="text" name="content" rows="2" class="form-control rounded-4" placeholder="Write something">
+        </div>
+    </div>
+</div>
+
                         <div class="attachments">
                             <ul>
                                 <li>
@@ -95,7 +111,11 @@ $posts = Post::get();
                 <div class="card">
                     <div class="d-flex justify-content-between p-2 px-3">
                         <div class="d-flex flex-row align-items-center">
+                            @if($post->user->image == null)
+                            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" width="30" class="rounded-circle">
+                            @else
                             <img src="{{$post->user->image}}" width="30" class="rounded-circle">
+                            @endif
                             <div class="d-flex flex-column ml-2">
                                 <span class="font-weight-bold"><a href="{{ route('user.profile', ['id' => $post->user_id]) }}">{{$post->user->name}}</a></span>
                                 <small class="text-primary">Colleagues</small>
