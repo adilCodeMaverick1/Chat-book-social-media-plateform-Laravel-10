@@ -72,68 +72,29 @@
     <div class="top-area">
         <ul class="main-menu">
             <li>
-                <a href="#" title="">Home</a>
+                <a href="/newsfeed" title="newsfeed" class="fa fa-newspaper" style="font-size: 30px;"></a>
                 <ul>
-                    <li><a href="index-2.html" title="">Home Social</a></li>
+                    <li><a href="/newsfeed" title="">latest</a></li>
 
                 </ul>
             </li>
-            <li>
-                <a href="#" title="">timeline</a>
-                <ul>
-                    <li><a href="time-line.html" title="">timeline</a></li>
-
-                </ul>
-            </li>
-            <li>
-                <a href="#" title="">account settings</a>
-                <ul>
-                    <li><a href="create-fav-page.html" title="">create fav page</a></li>
-
-                </ul>
-            </li>
-            <li>
-                <a href="#" title="">more pages</a>
-                <ul>
-                    <li><a href="404.html" title="">404 error page</a></li>
-
-                </ul>
-            </li>
+          
+         
+          
         </ul>
-        <ul class="setting-area">
+        <ul class="setting-areaa">
 
-            <li><a href="/newsfeed" title="Home" data-ripple=""><i class="fa-solid fa-house"></i></a></li>
+            <li><a href="/newsfeed" title="Home" ><i class="fa-solid fa-bell"  style="font-size: 25px;"></i></a></li>
+     
             <li>
-                <a href="/notify" title="Notification" data-ripple="">
-                    <i class="fa-solid fa-bell"></i><span>20</span>
-                </a>
-                <div class="dropdowns">
-                    <span>4 New Notifications</span>
-                    <ul class="drops-menu">
+            <a href="{{ route('chatify') }}" title="Messages">
+    <i class="fa fa-comment" style="font-size: 25px;"></i>
+    <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
+</a>
 
-                        <li>
-                            <a href="notifications.html" title="">
-                                <img src="images/resources/thumb-5.jpg" alt="">
-                                <div class="mesg-meta">
-                                    <h6>Amy</h6>
-                                    <span>Hi, how r u dear ...?</span>
-                                    <i>2 min ago</i>
-                                </div>
-                            </a>
-                            <span class="tag">New</span>
-                        </li>
-                    </ul>
-                    <a href="notifications.html" title="" class="more-mesg">view more</a>
-                </div>
-            </li>
-            <li>
-    <a href="{{ route('chatify') }}" title="Messages">
-        <i class="fa fa-comment"></i>
-        <span class="unread">{{ auth()->user()->getMessageCount() }}</span>
-    </a>
 </li>
 
-            <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i></a>
+            <li><a href="#" title="find friends" ><i class="fa fa-user-friends" style="font-size: 25px;"></i></a>
                 <div class="dropdowns languages">
                     <a href="#" title=""><i class="ti-check"></i>English</a>
 
@@ -143,7 +104,7 @@
         <div class="user-img">
 
             @if(auth()->user()->image != null)
-            <img src="{{ asset(auth()->user()->image) }}" width="30px">
+            <img src="{{ asset(auth()->user()->image) }}" width="30px" height="10px">
             @else
             <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" width="30px">
             @endif

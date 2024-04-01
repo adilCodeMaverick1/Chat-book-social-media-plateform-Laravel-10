@@ -42,7 +42,7 @@ Route::delete('/follow', [UserController::class, 'unfollow'])->middleware('auth'
 
 
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
-
+//brodcasting route fron user model
 Route::get('/unreadcount',function(){
     $count = auth()->user()->getMessageCount();
     return response()->json(['count' => $count]);

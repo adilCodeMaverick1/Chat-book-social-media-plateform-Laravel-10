@@ -53,11 +53,14 @@
                 {{ $slot }}
             </main>
         </div>
-
+        <audio id="notificationSound">
+    <source src="{{ asset('sounds/chatify/new-message-sound.mp3') }}" type="audio/mpeg">
+    Your browser does not support the audio element.
+</audio>
         @stack('modals')
         <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
   <script>
-
+ var notificationSound = document.getElementById("notificationSound");
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -73,6 +76,7 @@ $.ajax({
     dataType: "json",
     success: function(data) {
         $('.unread').html(data.count);
+        notificationSound.play();
     }
 })
     });
