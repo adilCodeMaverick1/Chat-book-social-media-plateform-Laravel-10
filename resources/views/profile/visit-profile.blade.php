@@ -45,7 +45,8 @@
 
 @endif
 
-              <button type="button" class="btn btn-outline-primary ms-1">Message</button>
+<a href="{{ url('chatify/' . $user->id) }}" type="button" class="btn btn-outline-primary ms-1">Message</a>
+
               @else
               <form id="postForm" enctype="multipart/form-data">
 @csrf

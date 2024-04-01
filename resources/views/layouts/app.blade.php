@@ -12,6 +12,8 @@
        <script src="{{asset('js/main.min.js')}}"></script>
        <script src="{{asset('js/map-init.js')}}"></script>
        <script src="{{asset('js/script.js')}}"></script>
+       <script src="{{asset('js/ajax.js')}}"></script>
+
 
         <title>{{ config('app.name', 'Laravel') }}</title>
     

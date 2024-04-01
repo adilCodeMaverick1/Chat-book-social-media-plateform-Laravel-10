@@ -95,3 +95,25 @@
     </div>
 </div>
 @endforeach
+
+<div class="container notification-comment fixed-bottom mb-4 ml-4">
+    <div class="alert alert-success alert-dismissible border border-success fade show" role="alert">
+        <strong>Success!</strong> Comment posted successfully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+<div class="container notification-panel fixed-top mb-4 ml-4">
+    <div class="alert alert-success alert-dismissible border border-success fade show" role="alert">
+        <strong>Success!</strong>posted successfully.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+</div>
+
+
+
+
+

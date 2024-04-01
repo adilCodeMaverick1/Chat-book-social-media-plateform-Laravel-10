@@ -1,4 +1,4 @@
-<aside class="sidebar static">
+<aside class="sidebar static " style="position: fixed;">
 										<div class="widget">
 											<h4 class="widget-title">Our Latest Chatbook AI</h4>
 											<div class="your-page">
