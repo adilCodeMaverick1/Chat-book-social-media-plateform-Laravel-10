@@ -149,7 +149,12 @@ class MessagesController extends Controller
                 ]);
             }
         }
-event(new MyEvent('message event'));
+
+
+
+event(new MyEvent('message sent'));
+
+
         // send the response
         return Response::json([
             'status' => '200',

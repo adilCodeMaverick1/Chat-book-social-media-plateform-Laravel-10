@@ -58,6 +58,15 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+    public function getMessageCount()
+    {
+        if (auth()->check()) {
+            return ChMessage::where('to_id', auth()->user()->id)->where('seen', '0')->count();
+        }
+        return 0;
+    }
+    
+
     public function likedPosts()
 {
     return $this->belongsToMany(Post::class, 'post_user')->withTimestamps();
@@ -71,4 +80,5 @@ public function followers()
     {
         return $this->hasMany(Follower::class, 'follower_id');
     }
+
 }

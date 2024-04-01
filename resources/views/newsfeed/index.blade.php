@@ -87,22 +87,11 @@
 
 
 </x-app-layout>
-<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-  <script>
 
-    // Enable pusher logging - don't include this in production
-    Pusher.logToConsole = true;
 
-    var pusher = new Pusher('4acf09da40183ef50667', {
-      cluster: 'ap2'
-    });
-
-    var channel = pusher.subscribe('my-channel');
-    channel.bind('my-event', function(data) {
-      alert(JSON.stringify(data));
-    });
-  </script>
 <script>
+	   // Enable pusher logging - don't include this in production
+
 	//post
 	$(document).ready(function() {
 		$('#postForm').submit(function(e) {

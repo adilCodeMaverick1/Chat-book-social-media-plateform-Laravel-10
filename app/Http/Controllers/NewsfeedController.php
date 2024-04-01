@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class NewsfeedController extends Controller
 {
@@ -129,6 +132,11 @@ public function delete(Post $post)
 
     // Return the response
     return view('newsfeed', ['data' => $data]);
+}
+public function unseenmessage(){
+
+    $unseen = DB::table('ch_messages')->where('to_id', '=', Auth::user()->id)->where('seen',0)->count();
+    return response()->json(['unseen' => $unseen]);
 }
 
    

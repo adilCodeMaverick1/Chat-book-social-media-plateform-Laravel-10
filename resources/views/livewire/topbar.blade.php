@@ -127,9 +127,12 @@
                 </div>
             </li>
             <li>
-                <a href="/chatify" title="Messages" data-ripple=""><i class="fa fa-comment"></i><span>12</span></a>
-                
-            </li>
+    <a href="{{ route('chatify') }}" title="Messages">
+        <i class="fa fa-comment"></i>
+        <span class="unread">{{ auth()->user()->getMessageCount() }}</span>
+    </a>
+</li>
+
             <li><a href="#" title="Languages" data-ripple=""><i class="fa fa-globe"></i></a>
                 <div class="dropdowns languages">
                     <a href="#" title=""><i class="ti-check"></i>English</a>
