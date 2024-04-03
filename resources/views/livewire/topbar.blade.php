@@ -48,6 +48,7 @@
                         <input type="checkbox" id="switch5" />
                         <label for="switch5" data-on-label="ON" data-off-label="OFF"></label>
                     </div>
+
                 </form>
                 <h4 class="panel-title">Account Setting</h4>
                 <form method="post">
@@ -78,27 +79,25 @@
 
                 </ul>
             </li>
-          
-         
-          
+
+
+
         </ul>
         <ul class="setting-areaa">
 
-            <li><a href="/newsfeed" title="Home" ><i class="fa-solid fa-bell"  style="font-size: 25px;"></i></a></li>
-     
+            <li><a href="/newsfeed" title="Home"><i class="fa-solid fa-bell" style="font-size: 25px;"></i></a></li>
+
             <li>
-            <a href="{{ route('chatify') }}" title="Messages">
-    <i class="fa fa-comment" style="font-size: 25px;"></i>
-    <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
-</a>
+                <a href="{{ route('chatify') }}" title="Messages">
+                    <i class="fa fa-comment" style="font-size: 25px;"></i>
+                    <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
+                </a>
 
-</li>
+            </li>
 
-            <li><a href="#" title="find friends" ><i class="fa fa-user-friends" style="font-size: 25px;"></i></a>
-                <div class="dropdowns languages">
-                    <a href="#" title=""><i class="ti-check"></i>English</a>
-
-                </div>
+      
+            <li><a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
+             
             </li>
         </ul>
         <div class="user-img">
@@ -113,8 +112,7 @@
             <span class="status f-online"></span>
             <div class="user-setting">
 
-                <a href="{{ route('profile.show') }}" title=""><span class="status f-online"></span>Profile</a>
-                <a href="#" title=""><span class="text-danger"></span>Logout</a>
+
 
             </div>
         </div>
