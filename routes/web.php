@@ -1,7 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
+
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsfeedController;
 use App\Http\Controllers\UserController;
 
@@ -39,7 +41,7 @@ Route::post('/follow', [UserController::class, 'follow'])->middleware('auth');
 Route::delete('/follow', [UserController::class, 'unfollow'])->middleware('auth');
 
 //user image upload route
-
+Route::post('/update-profile', [ProfileController::class, 'updateProfile']);
 
 Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
 //brodcasting route fron user model

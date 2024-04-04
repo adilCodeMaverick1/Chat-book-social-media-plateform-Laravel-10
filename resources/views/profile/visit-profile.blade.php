@@ -95,6 +95,16 @@
             </div>
           </div>
         </div>
+        @if(auth()->user()->private == 1)
+
+        <div class="container bg-danger text-light rounded p-5">
+          <div class="message">
+            <i class="fas fa-lock"></i>
+            This Profile is Private
+          </div>
+
+        </div>
+        @else
         <div class="col-lg-8">
           <div class="card mb-4">
             <div class="card-body">
@@ -116,9 +126,9 @@
                 </div>
               </div>
               <hr>
-              
+
               <hr>
-              
+
               <hr>
               <div class="row">
                 <div class="col-sm-3">
@@ -191,14 +201,16 @@
           </div>
           @else
           <div class="container bg-dark text-light rounded p-5">
-    <div class="message">
-        <i class="fas fa-lock"></i>
-        You have to follow this account first
-    </div>
-</div>
+            <div class="message">
+              <i class="fas fa-lock"></i>
+              You have to follow this account first
+            </div>
+          </div>
 
           @endif
         </div>
+        @endif
+
       </div>
     </div>
   </section>

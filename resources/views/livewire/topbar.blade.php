@@ -121,12 +121,43 @@
 </div><!-- topbar -->
 <div class="side-panel">
     <h4 class="panel-title">General Setting</h4>
-    <form method="post">
-        <div class="setting-row">
-            <span>use night mode</span>
-            <input type="checkbox" id="nightmode1" />
-            <label for="nightmode1" data-on-label="ON" data-off-label="OFF"></label>
-        </div>
+    <form method="post" id="profileForm">
+    <div class="setting-row">
+        <span>Private profile </span>
+        <input type="checkbox" id="privateProfileSwitch" />
+        <label for="privateProfileSwitch" data-on-label="ON" data-off-label="OFF"></label>
+    </div>
+    <input type="hidden" id="userId" value="{{ auth()->user()->id }}">
+</form>
 
-    </form>
+<script>
+    $(document).ready(function() {
+        $('#privateProfileSwitch').change(function() {
+            var isPrivate = this.checked ? 1 : 0;
+            var userId = $('#userId').val();
+            var token = $('meta[name="csrf-token"]').attr('content'); // Get CSRF token from meta tag
+
+            $.ajax({
+                url: '/update-profile',
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': token // Include CSRF token in headers
+                },
+                data: {
+                    _token: token, // Include CSRF token in form data
+                    userId: userId,
+                    isPrivate: isPrivate
+                },
+                success: function(response) {
+                    console.log('Profile updated successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error updating profile:', error);
+                }
+            });
+        });
+    });
+</script>
+
+
 </div><!-- side panel -->
