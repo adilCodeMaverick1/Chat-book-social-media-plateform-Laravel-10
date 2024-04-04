@@ -24,31 +24,17 @@
 
                 </ul>
             </li>
-
-
-
-
-
-
-
-
-
         </ul>
     </nav>
     <nav id="shoppingbag">
         <div>
             <div class="">
                 <form method="post">
-
-
-
-
                     <div class="setting-row">
                         <span>Show profile</span>
                         <input type="checkbox" id="switch5" />
                         <label for="switch5" data-on-label="ON" data-off-label="OFF"></label>
                     </div>
-
                 </form>
                 <h4 class="panel-title">Account Setting</h4>
                 <form method="post">
@@ -83,10 +69,36 @@
 
 
         </ul>
-        <ul class="setting-areaa">
+        <ul class="setting-area">
 
-            <li><a href="/newsfeed" title="Home"><i class="fa-solid fa-bell" style="font-size: 25px;"></i></a></li>
+            
+            <li>
+            <a href="#" title="Home" data-ripple=""><i class="fa-solid fa-bell" style="font-size: 25px;"></i></a>
+                <div class="dropdowns">
+                    <span>4 New Notifications</span>
+                    <ul class="drops-menu ">
+                        @foreach ( $posts->take(3) as $post)
+                        <li>
+                            <a href="notifications.html" title="">
+                                <img src="images/resources/thumb-1.jpg" alt="">
+                                <div class="mesg-meta">
+                                    <h6>{{$post->user->name}}</h6>
+                                    <span>Hi, how r u dear ...?</span>
+                                    <i>2 min ago</i>
+                                </div>
+                            </a>
+                            <span class="tag green">New</span>
+                        </li> 
+                        @endforeach
+                       
 
+
+
+
+                    </ul>
+                    <a href="notifications.html" title="" class="more-mesg">view more</a>
+                </div>
+            </li>
             <li>
                 <a href="{{ route('chatify') }}" title="Messages">
                     <i class="fa fa-comment" style="font-size: 25px;"></i>
@@ -95,9 +107,9 @@
 
             </li>
 
-      
+
             <li><a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
-             
+
             </li>
         </ul>
         <div class="user-img">
@@ -122,42 +134,42 @@
 <div class="side-panel">
     <h4 class="panel-title">General Setting</h4>
     <form method="post" id="profileForm">
-    <div class="setting-row">
-        <span>Private profile </span>
-        <input type="checkbox" id="privateProfileSwitch" />
-        <label for="privateProfileSwitch" data-on-label="ON" data-off-label="OFF"></label>
-    </div>
-    <input type="hidden" id="userId" value="{{ auth()->user()->id }}">
-</form>
+        <div class="setting-row">
+            <span>Private profile </span>
+            <input type="checkbox" id="privateProfileSwitch" {{ auth()->user()->private == 1 ? 'checked' : '' }} />
+            <label for="privateProfileSwitch" data-on-label="ON" data-off-label="OFF"></label>
+        </div>
+        <input type="hidden" id="userId" value="{{ auth()->user()->id }}">
+    </form>
 
-<script>
-    $(document).ready(function() {
-        $('#privateProfileSwitch').change(function() {
-            var isPrivate = this.checked ? 1 : 0;
-            var userId = $('#userId').val();
-            var token = $('meta[name="csrf-token"]').attr('content'); // Get CSRF token from meta tag
+    <script>
+        $(document).ready(function() {
+            $('#privateProfileSwitch').change(function() {
+                var isPrivate = this.checked ? 1 : 0;
+                var userId = $('#userId').val();
+                var token = $('meta[name="csrf-token"]').attr('content'); // Get CSRF token from meta tag
 
-            $.ajax({
-                url: '/update-profile',
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': token // Include CSRF token in headers
-                },
-                data: {
-                    _token: token, // Include CSRF token in form data
-                    userId: userId,
-                    isPrivate: isPrivate
-                },
-                success: function(response) {
-                    console.log('Profile updated successfully');
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error updating profile:', error);
-                }
+                $.ajax({
+                    url: '/update-profile',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': token // Include CSRF token in headers
+                    },
+                    data: {
+                        _token: token, // Include CSRF token in form data
+                        userId: userId,
+                        isPrivate: isPrivate
+                    },
+                    success: function(response) {
+                        console.log('Profile updated successfully');
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('Error updating profile:', error);
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 
 </div><!-- side panel -->

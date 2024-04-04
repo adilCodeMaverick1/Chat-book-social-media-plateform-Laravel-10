@@ -95,9 +95,9 @@
             </div>
           </div>
         </div>
-        @if(auth()->user()->private == 1)
+        @if($user->private == 1)
 
-        <div class="container bg-danger text-light rounded p-5">
+        <div class=" bg-danger text-light rounded p-5 col-lg-8" style="height: 200px;">
           <div class="message">
             <i class="fas fa-lock"></i>
             This Profile is Private
