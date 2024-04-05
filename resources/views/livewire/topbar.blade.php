@@ -75,16 +75,19 @@
             <li>
             <a href="#" title="Home" data-ripple=""><i class="fa-solid fa-bell" style="font-size: 25px;"></i></a>
                 <div class="dropdowns">
-                    <span>4 New Notifications</span>
+                    <span>{{ $notifications->count() }} New Notifications</span>
                     <ul class="drops-menu ">
-                        @foreach ( $posts->take(3) as $post)
+                        @foreach ( $notifications->sortByDesc('created_at') as $post)
+                        
                         <li>
                             <a href="notifications.html" title="">
                                 <img src="images/resources/thumb-1.jpg" alt="">
                                 <div class="mesg-meta">
-                                    <h6>{{$post->user->name}}</h6>
-                                    <span>Hi, how r u dear ...?</span>
-                                    <i>2 min ago</i>
+                                    <h6>{{$post->name}}</h6>
+                                    <span>liked your post</span>
+                                    
+                                    <i>{{$post->content}}</i>
+                                    <i>{{ \Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</i>
                                 </div>
                             </a>
                             <span class="tag green">New</span>
@@ -104,10 +107,7 @@
                     <i class="fa fa-comment" style="font-size: 25px;"></i>
                     <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
                 </a>
-
             </li>
-
-
             <li><a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
 
             </li>

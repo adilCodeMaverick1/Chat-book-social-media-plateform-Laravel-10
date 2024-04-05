@@ -22,8 +22,19 @@ class NewsfeedController extends Controller
         $posts = Post::all(); // Or fetch posts based on user interests
 
 
-        
-        return view('newsfeed.index', ['posts' => $posts]);
+        $userId = auth()->id(); // Assuming you're using Laravel's authentication
+
+$notifications = DB::table('posts')
+    ->join('post_user', 'posts.id', '=', 'post_user.post_id')
+    ->join('users', 'post_user.user_id', '=', 'users.id')
+    ->select('users.name', 'posts.content','post_user.created_at')
+    ->where('posts.user_id', $userId) // Fetch posts created by the user
+    ->where('post_user.user_id', '!=', $userId)
+    ->get();
+
+// Display notifications
+
+        return view('newsfeed.index', ['posts' => $posts , 'notifications' => $notifications]);
     }
     
 
