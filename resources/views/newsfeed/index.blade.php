@@ -4,6 +4,7 @@
 	<div class="theme-layout">
 
 		@include('livewire.topbar')
+		
 
 		<section>
 			<div class="gap gray-bg">

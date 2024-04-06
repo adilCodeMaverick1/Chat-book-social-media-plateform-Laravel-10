@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ChMessage;
 use App\Models\Post;
 use App\Models\Comment;
 
@@ -21,9 +22,23 @@ class NewsfeedController extends Controller
     {
         $posts = Post::all(); // Or fetch posts based on user interests
 
+        $userId = auth()->id(); // Assuming you're using Laravel's authentication
+
+        $notifications = DB::table('posts')
+            ->join('post_user', 'posts.id', '=', 'post_user.post_id')
+            ->join('users', 'post_user.user_id', '=', 'users.id')
+            ->select('users.name', 'posts.content', 'post_user.created_at','users.image')
+            ->where('posts.user_id', $userId) // Fetch posts created by the user
+            ->where('post_user.user_id', '!=', $userId)
+            ->get();
+
+            $message = ChMessage::where('to_id', auth()->user()->id)
+            ->where('seen', 0)
+            ->get();
+            
 
         
-        return view('newsfeed.index', ['posts' => $posts]);
+        return view('newsfeed.index', ['posts' => $posts ,'notifications' => $notifications ,'messages' => $message]);
     }
     
 
