@@ -121,7 +121,7 @@
                     <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
                 </a>
                 <div class="dropdowns">
-						<span>5 New Messages</span>
+						<span>{{ auth()->user()->getMessageCount() }}New Messages</span>
 						<ul class="drops-menu">
                             @foreach ( $messages->sortByDesc('created_at')->take(5) as $message)
 							<li>
