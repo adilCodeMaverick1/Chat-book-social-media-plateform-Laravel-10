@@ -80,5 +80,18 @@ public function followers()
     {
         return $this->hasMany(Follower::class, 'follower_id');
     }
+    public function virtualCurrency()
+{
+    return $this->hasOne(VirtualCurrency::class);
+}
+
+protected static function boot()
+{
+    parent::boot();
+
+    static::created(function ($user) {
+        $user->virtualCurrency()->create(['balance' => 120]);
+    });
+}
 
 }

@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\VirtualCurrencyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsfeedController;
 use App\Http\Controllers\UserController;
@@ -25,6 +26,10 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    //virtual creency
+    Route::get('/virtual-currency', [VirtualCurrencyController::class, 'index'])->name('virtual-currency');
+Route::post('/purchase-verification-mark', [VirtualCurrencyController::class, 'purchaseVerificationMark'])->name('purchase-verification-mark');
+
    
     Route::post('/newsfeed/store', [NewsfeedController::class, 'store'])->name('newsfeed.store');
     Route::post('/newsfeed/like', [NewsfeedController::class, 'like'])->name('newsfeed.like');

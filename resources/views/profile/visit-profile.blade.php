@@ -1,4 +1,41 @@
 <x-app-layout>
+
+
+
+  <!-- <div class="container">
+    <h1>Virtual Currency</h1>
+    @if(auth()->user()->virtualCurrency)
+    <p>Your current balance: {{ auth()->user()->virtualCurrency->balance }}</p>
+    @else
+    <p>No virtual currency record found for the user.</p>
+    @endif
+
+    <form method="POST" action="{{ route('purchase-verification-mark') }}">
+      @csrf
+      <button type="submit" class="btn btn-primary">Purchase Verification Mark</button>
+    </form>
+  </div> -->
+  @if(auth()->user()->id == $user->id)
+  <div class="container">
+        <h1>Virtual Currency</h1>
+        <p>
+    Your current balance:
+    <span>{{ auth()->user()->virtualCurrency->balance }}</span>
+    <i class="fas fa-coins" style="color: gold;"></i>
+</p>
+
+        @if(auth()->user()->virtualCurrency->expiry_date && auth()->user()->virtualCurrency->expiry_date->gt(now()))
+            <p>Your verification mark is active.</p>
+        @else
+            <form method="POST" action="{{ route('purchase-verification-mark') }}">
+                @csrf
+                <button type="submit" class="btn btn-primary text-dark" >Purchase Verification Mark</button>
+            </form>
+        @endif
+    </div>
+    @endif
+
+
   <!-- Add more profile details here -->
   <section style="background-color: #eee;">
     <div class="container py-5">
@@ -21,15 +58,23 @@
               <!-- Check if the user has uploaded an image -->
               @if(auth()->user()->image)
               <!-- Show the user's uploaded image -->
-              <img src="{{ asset(auth()->user()->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+              <img src="{{ asset(auth()->user()->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;margin-left:110px;">
               @else
               <!-- Show a default image if the user has not uploaded one -->
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
               @endif
 
               <h5 class="my-3">
-                <h1>{{ $user->name }}</h1>
-              </h5>
+              <h1>
+    {{ $user->name }} 
+    @if ($user->virtualCurrency->expiry_date && $user->virtualCurrency->expiry_date->gt(now()))
+        <i class="fa-solid fa-check-circle text-primary" title="Verified"></i>
+    @endif
+    
+</h1>
+
+</h5>
+
               <p class="text-muted mb-1">Full Stack Developer</p>
               <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
               <div class="d-flex justify-content-center mb-2">
@@ -95,9 +140,9 @@
             </div>
           </div>
         </div>
-        @if(auth()->user()->private == 1)
+        @if($user->private == 1 && $user->id != auth()->id())
 
-        <div class="container bg-danger text-light rounded p-5">
+        <div class="col-lg-8 bg-dark text-light rounded p-5" style="height: 150px;">
           <div class="message">
             <i class="fas fa-lock"></i>
             This Profile is Private
@@ -140,7 +185,7 @@
               </div>
             </div>
           </div>
-          @if(auth()->user()->following()->where('following_id', $user->id)->exists())
+
           <div class="row">
             <div class="col-md-6">
               <div class="card mb-4 mb-md-0">
@@ -199,20 +244,13 @@
               </div>
             </div>
           </div>
-          @else
-          <div class="container bg-dark text-light rounded p-5">
-            <div class="message">
-              <i class="fas fa-lock"></i>
-              You have to follow this account first
-            </div>
-          </div>
 
-          @endif
         </div>
         @endif
 
       </div>
     </div>
+    
   </section>
 </x-app-layout>
 <script>

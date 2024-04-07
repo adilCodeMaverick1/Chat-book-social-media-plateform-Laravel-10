@@ -1,4 +1,4 @@
-@foreach($posts as $post)
+@foreach($posts->sortByDesc('created_at') as $post)
 <div class="central-meta item">
     <div class="user-post">
         <div class="friend-info">
@@ -14,7 +14,11 @@
 
 
             <div class="friend-name">
-                <ins><a href="time-line.html" title="">{{$post->user->name}}</a></ins>
+                <ins><a href="time-line.html" title="">{{$post->user->name}}</a> 
+                @if ($post->user->virtualCurrency->expiry_date && $post->user->virtualCurrency->expiry_date->gt(now()))
+                <i class="fa-solid fa-check-circle text-primary" title="Verified"></i>
+                @endif
+                </ins>
                 <span>{{$post->created_at->diffForHumans()}}</span>
                 @if(auth()->id() == $post->user_id)
                 <button type="button" class="fa fa-trash text-danger delete-post-btn" data-post-id="{{ $post->id }}"></button>

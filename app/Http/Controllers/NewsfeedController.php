@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ChMessage;
 use App\Models\Post;
 use App\Models\Comment;
-
-
+use App\Models\Follower;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -35,10 +34,14 @@ class NewsfeedController extends Controller
             $message = ChMessage::where('to_id', auth()->user()->id)
             ->where('seen', 0)
             ->get();
+
+            $followers = Follower::where('follower_id', auth()->user()->id)
+            ->get();
+        
             
 
         
-        return view('newsfeed.index', ['posts' => $posts ,'notifications' => $notifications ,'messages' => $message]);
+        return view('newsfeed.index', ['posts' => $posts ,'notifications' => $notifications ,'messages' => $message,'followers' => $followers] );
     }
     
 

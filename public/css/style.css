@@ -85,6 +85,9 @@ a:active {
     -o-text-decoration: none;
     text-decoration: none;
 }
+.a{
+    text-decoration: none;
+}
 
 input:focus,
 textarea:focus,

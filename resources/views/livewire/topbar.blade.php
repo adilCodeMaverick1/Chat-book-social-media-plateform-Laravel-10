@@ -67,7 +67,7 @@
             </li>
             <li>
                 <form action="{{ route('search') }}" method="GET">
-                    <input type="text" name="query" placeholder="Search users..." class="rounded-4 p-1" style="width: 300px;">
+                    <input type="search" name="query" placeholder="Search users..." class="rounded-4 p-1" style="width: 300px;">
 
                 </form>
             </li>
@@ -139,7 +139,6 @@
                         </ul>
                 </div>
             </li>
-            <li><a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
 
             </li>
         </ul>
