@@ -56,9 +56,9 @@
           <div class="card mb-4">
             <div class="card-body text-center">
               <!-- Check if the user has uploaded an image -->
-              @if(auth()->user()->image)
+              @if($user->image)
               <!-- Show the user's uploaded image -->
-              <img src="{{ asset(auth()->user()->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;margin-left:110px;">
+              <img src="{{ asset($user->image) }}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;margin-left:110px;">
               @else
               <!-- Show a default image if the user has not uploaded one -->
               <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">

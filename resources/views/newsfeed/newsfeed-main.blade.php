@@ -14,7 +14,7 @@
 
 
             <div class="friend-name">
-                <ins><a href="time-line.html" title="">{{$post->user->name}}</a> 
+                <ins><a href="{{ route('user.profile', ['id' => $post->user->id]) }}" title="">{{$post->user->name}}</a> 
                 @if ($post->user->virtualCurrency->expiry_date && $post->user->virtualCurrency->expiry_date->gt(now()))
                 <i class="fa-solid fa-check-circle text-primary" title="Verified"></i>
                 @endif

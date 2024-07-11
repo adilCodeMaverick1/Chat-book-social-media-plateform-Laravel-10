@@ -25,6 +25,9 @@ class UserController extends Controller
 public function search(Request $request)
 {
     $query = $request->input('query');
+    $request->validate([
+        'query' => 'required|string|min:1', // Ensure 'query' is required and at least 1 character long
+    ]);
 
     // Example search logic - you should adjust this based on your actual search requirements
     $users = User::where('name', 'like', '%' . $query . '%')->get();

@@ -61,14 +61,17 @@
             <li>
                 <a href="/newsfeed" title="newsfeed" class="fa fa-newspaper" style="font-size: 30px;"></a>
                 <ul>
-                    <li><a href="/newsfeed" title="">latest</a></li>
+                    <li><a href="/chatify" title="">latest</a></li>
 
                 </ul>
             </li>
             <li>
                 <form action="{{ route('search') }}" method="GET">
-                    <input type="search" name="query" placeholder="Search users..." class="rounded-4 p-1" style="width: 300px;">
-
+                    <input id="search" type="search" name="query" placeholder="Search users..." class="rounded-4 p-2" style="width: 300px;">
+                  <button type="submit" class="btn btn-outline-dark " >find</button>
+                   @error('query')
+        <div class="text-danger">{{ $message }}</div>
+    @enderror
                 </form>
             </li>
 
@@ -199,6 +202,8 @@
                 });
             });
         });
+
+
     </script>
 
 

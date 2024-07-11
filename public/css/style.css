@@ -4725,14 +4725,14 @@ canvas {
     letter-spacing: 0.3px;
 }
 
-.top-area > ul.main-menu > li::after {
+/* .top-area > ul.main-menu > li::after {
     content: "";
     font-family: fontawesome;
     font-size: 13px;
     position: absolute;
     right: 10px;
     top: 0;
-}
+} */
 
 .top-area > ul.main-menu > li > ul li {
     line-height: initial;
