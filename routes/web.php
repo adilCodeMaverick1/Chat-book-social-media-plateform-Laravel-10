@@ -57,6 +57,8 @@ Route::get('/unreadcount',function(){
 
 Route::get('/social-links/create', [UserController::class, 'create'])->name('social-links.create');
 Route::post('/social-links', [UserController::class, 'linkStore'])->name('social-links.store');
+Route::get('/social-links/{id}', [UserController::class, 'linkId'])->name('social-links.edit');
+Route::put('/social-links/{id}', [UserController::class, 'update'])->name('social-links.update');
 });
 
 Route::middleware([

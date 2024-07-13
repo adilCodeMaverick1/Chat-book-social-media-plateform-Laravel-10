@@ -114,8 +114,17 @@
             </div>
           </div>
           <div class="container mx-auto mt-10">
+            <!-- edit and ceate links -->
         <div class="card mb-4 mb-lg-0">
-            <a href="/social-links/create" class="btn btn-primary">Edit links</a>
+          @if(auth()->user()->id == $user->id)
+          @if ($socialLinks == null)
+          <a href="/social-links/create" class="btn btn-primary">Create links</a>
+
+          @else
+          <a href="/social-links/{{$socialLinks->id}}" class="btn btn-primary">Edit links</a>
+            
+          @endif
+          @endif
             <div class="card-body p-0">
                 <ul class="list-group list-group-flush rounded-3">
                     <li class="list-group-item d-flex justify-content-between align-items-center p-3">

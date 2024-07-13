@@ -136,5 +136,37 @@ public function linkStore(Request $request)
 
     return redirect()->back()->with('success', 'Social links saved successfully!');
 }
+public function linkId($id){
+    $socialLink = SocialLink::find($id);
+    if (!$socialLink) {
+        abort(404); // Social link not found, return 404 error
+    }
+    return view('profile.edit-link', ['socialLinks' => $socialLink]);
+}
+public function update(Request $request, $id)
+    {
+        $request->validate([
+            'github' => 'nullable|url',
+            'linkedin' => 'nullable|url',
+            'facebook' => 'nullable|url',
+            'website' => 'nullable|url',
+            'twitter' => 'nullable|url',
+        ]);
+
+        $socialLink = SocialLink::find($id);
+        if ($socialLink) {
+            $socialLink->update([
+                'github' => $request->github,
+                'linkedin' => $request->linkedin,
+                'facebook' => $request->facebook,
+                'website' => $request->website,
+                'twitter' => $request->twitter,
+            ]);
+
+            return redirect()->back()->with('success', 'Social links updated successfully!');
+        }
+
+        return redirect()->back()->with('error', 'Social links not found.');
+    }
 
 }
