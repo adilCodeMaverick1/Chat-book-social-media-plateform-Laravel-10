@@ -68,10 +68,10 @@
             <li>
                 <form action="{{ route('search') }}" method="GET">
                     <input id="search" type="search" name="query" placeholder="Search users..." class="rounded-4 p-2" style="width: 300px;">
-                  <button type="submit" class="btn btn-outline-dark " >find</button>
-                   @error('query')
-        <div class="text-danger">{{ $message }}</div>
-    @enderror
+                    <button type="submit" class="btn btn-outline-dark ">find</button>
+                    @error('query')
+                    <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </form>
             </li>
 
@@ -79,6 +79,8 @@
 
         </ul>
         <ul class="setting-area">
+
+
 
 
             <li>
@@ -91,12 +93,12 @@
 
                         <li>
                             <a href="notifications.html" title="">
-                            @if ($post->image != null)
-    <img src="{{$post->image}}" alt="">
-@else
-    <!-- Display a placeholder image or no image -->
-    <img src="placeholder.jpg" alt="No Image">
-@endif
+                                @if ($post->image != null)
+                                <img src="{{$post->image}}" alt="">
+                                @else
+                                <!-- Display a placeholder image or no image -->
+                                <img src="placeholder.jpg" alt="No Image">
+                                @endif
 
                                 <div class="mesg-meta">
                                     <h6>{{$post->name}}</h6>
@@ -123,25 +125,30 @@
                     <i class="fa fa-comment" style="font-size: 25px;"></i>
                     <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
                 </a>
+
                 <div class="dropdowns">
-						<span>{{ auth()->user()->getMessageCount() }}New Messages</span>
-						<ul class="drops-menu">
-                            @foreach ( $messages->sortByDesc('created_at')->take(5) as $message)
-							<li>
-								<a href="notifications.html" title="">
-									<img src="{{$message->user->image}}" alt="">
-									<div class="mesg-meta">
-										<h6>{{$message->user->name}}</h6>
-										<span>{{$message->body}}</span>
-										<i>{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</i>
-									</div>
-								</a>
-								<span class="tag green">New</span>
-							</li>
-                            @endforeach
-                        </ul>
+                    <span>{{ auth()->user()->getMessageCount() }}New Messages</span>
+                    <ul class="drops-menu">
+                        @foreach ( $messages->sortByDesc('created_at')->take(5) as $message)
+                        <li>
+                            <a href="notifications.html" title="">
+                                <img src="{{$message->user->image}}" alt="">
+                                <div class="mesg-meta">
+                                    <h6>{{$message->user->name}}</h6>
+                                    <span>{{$message->body}}</span>
+                                    <i>{{ \Carbon\Carbon::parse($message->created_at)->diffForHumans() }}</i>
+                                </div>
+                            </a>
+                            <span class="tag green">New</span>
+                        </li>
+                        @endforeach
+                    </ul>
                 </div>
             </li>
+
+            </li>
+            <li><a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
+
 
             </li>
         </ul>
@@ -202,9 +209,12 @@
                 });
             });
         });
+    </script>
+
 
 
     </script>
+
 
 
 </div><!-- side panel -->

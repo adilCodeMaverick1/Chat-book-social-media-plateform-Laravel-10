@@ -55,7 +55,8 @@ Route::get('/unreadcount',function(){
     return response()->json(['count' => $count]);
 })->name('unreadcount');
 
-
+Route::get('/social-links/create', [UserController::class, 'create'])->name('social-links.create');
+Route::post('/social-links', [UserController::class, 'linkStore'])->name('social-links.store');
 });
 
 Route::middleware([

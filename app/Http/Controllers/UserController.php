@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\SocialLink;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -50,8 +51,8 @@ public function show($id)
     if (!$user) {
         abort(404); // User not found, return 404 error
     }
-
-    return view('profile.visit-profile', ['user' => $user]);
+    $socialLinks = $user->socialLinks;
+    return view('profile.visit-profile', ['user' => $user, 'socialLinks' => $socialLinks]);
 }
 //follow
 public function follow(Request $request)
@@ -109,5 +110,31 @@ $user=  new User();
     }
 }
 
+public function create()
+{
+    return view('profile.link');
+}
+
+public function linkStore(Request $request)
+{
+    $request->validate([
+        'github' => 'nullable|url',
+        'linkedin' => 'nullable|url',
+        'facebook' => 'nullable|url',
+        'website' => 'nullable|url',
+        'twitter' => 'nullable|url',
+    ]);
+
+    SocialLink::create([
+        'user_id' => auth()->id(),
+        'github' => $request->github,
+        'linkedin' => $request->linkedin,
+        'facebook' => $request->facebook,
+        'website' => $request->website,
+        'twitter' => $request->twitter,
+    ]);
+
+    return redirect()->back()->with('success', 'Social links saved successfully!');
+}
 
 }

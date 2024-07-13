@@ -93,5 +93,10 @@ protected static function boot()
         $user->virtualCurrency()->create(['balance' => 120]);
     });
 }
+public function socialLinks()
+{
+    return $this->hasOne(SocialLink::class);
+}
+
 
 }

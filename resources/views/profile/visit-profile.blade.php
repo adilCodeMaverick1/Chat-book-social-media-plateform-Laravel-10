@@ -113,32 +113,35 @@
               </div>
             </div>
           </div>
-          <div class="card mb-4 mb-lg-0">
+          <div class="container mx-auto mt-10">
+        <div class="card mb-4 mb-lg-0">
+            <a href="/social-links/create" class="btn btn-primary">Edit links</a>
             <div class="card-body p-0">
-              <ul class="list-group list-group-flush rounded-3">
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fas fa-globe fa-lg text-warning"></i>
-                  <p class="mb-0">https://mdbootstrap.com</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                  <p class="mb-0">@mdbootstrap</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li>
-                <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                  <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                  <p class="mb-0">mdbootstrap</p>
-                </li>
-              </ul>
+                <ul class="list-group list-group-flush rounded-3">
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fas fa-globe fa-lg text-warning"></i>
+                        <a class="mb-0" href="{{ $socialLinks->website ?? 'Not provided' }}">{{ $socialLinks->website ?? 'Not provided' }}</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                        <a class="mb-0" href="{{ $socialLinks->github ?? 'Not provided' }}">{{ $socialLinks->github ?? 'Not provided' }}</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                        <a class="mb-0" href="{{ $socialLinks->twitter ?? 'Not provided' }}">{{ $socialLinks->twitter ?? 'Not provided' }}</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                        <a class="mb-0" href="">Instagram not available</a>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                        <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                        <a class="mb-0" href="{{ $socialLinks->facebook ?? 'Not provided' }}">{{ $socialLinks->facebook ?? 'Not provided' }}</a>
+                    </li>
+                </ul>
             </div>
-          </div>
+        </div>
+    </div>
         </div>
         @if($user->private == 1 && $user->id != auth()->id())
 
