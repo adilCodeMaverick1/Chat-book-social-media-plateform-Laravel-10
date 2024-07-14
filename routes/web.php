@@ -63,6 +63,8 @@ Route::put('/social-links/{id}', [UserController::class, 'update'])->name('socia
 
 Route::get('/resume/create', [ResumeController::class, 'create'])->name('resume.create');
 Route::post('/resume', [ResumeController::class, 'store'])->name('resume.store');
+Route::get('/resume/{user}/edit', [ResumeController::class, 'edit'])->name('resume.edit');
+Route::put('/resume/{user}', [ResumeController::class, 'update'])->name('resume.update');
 });
 
 Route::middleware([

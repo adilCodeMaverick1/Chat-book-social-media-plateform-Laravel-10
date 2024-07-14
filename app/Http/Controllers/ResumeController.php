@@ -64,8 +64,74 @@ class ResumeController extends Controller
             ]);
         }
 
-        return redirect()->route('resume.create')->with('success', 'Resume created successfully.');
+        return redirect()->route('newsfeed')->with('success', 'Resume created successfully.');
     }
+    public function edit(User $user)
+    {
+        $user->load('additionalInfo', 'educations', 'experiences');
+        return view('resume.edit', compact('user'));
+    }
+    public function update(Request $request, User $user)
+{
+    // Validate request
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'address' => 'required|string|max:255',
+        'phone' => 'required|string|max:255',
+        'email' => 'required|string|email|max:255',
+        'summary' => 'required|string',
+        'education' => 'array',
+        'education.*.degree' => 'required|string|max:255',
+        'education.*.school' => 'required|string|max:255',
+        'education.*.start_year' => 'required|integer',
+        'education.*.end_year' => 'nullable|integer',
+        'experience' => 'array',
+        'experience.*.title' => 'required|string|max:255',
+        'experience.*.company' => 'required|string|max:255',
+        'experience.*.start_year' => 'required|integer',
+        'experience.*.end_year' => 'nullable|integer',
+    ]);
+
+    // Update additional info
+    $user->additionalInfo()->updateOrCreate(
+        [],
+        [
+            'name' => $request->input('name'),
+            'address' => $request->input('address'),
+            'phone' => $request->input('phone'),
+            'email' => $request->input('email'),
+            'summary' => $request->input('summary'),
+        ]
+    );
+
+    // Update educations
+    foreach ($request->input('education', []) as $educationData) {
+        $user->educations()->updateOrCreate(
+            ['id' => $educationData['id'] ?? null],
+            [
+                'degree' => $educationData['degree'],
+                'school' => $educationData['school'],
+                'start_year' => $educationData['start_year'],
+                'end_year' => $educationData['end_year'],
+            ]
+        );
+    }
+
+    // Update experiences
+    foreach ($request->input('experience', []) as $experienceData) {
+        $user->experiences()->updateOrCreate(
+            ['id' => $experienceData['id'] ?? null],
+            [
+                'title' => $experienceData['title'],
+                'company' => $experienceData['company'],
+                'start_year' => $experienceData['start_year'],
+                'end_year' => $experienceData['end_year'],
+            ]
+        );
+    }
+
+    return redirect()->route('newsfeed')->with('success', 'Resume updated successfully.');
+}
 }
 
 

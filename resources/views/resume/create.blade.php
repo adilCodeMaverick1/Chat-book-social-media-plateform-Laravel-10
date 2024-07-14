@@ -1,7 +1,4 @@
 <x-app-layout>
-<!-- resources/views/resume/create.blade.php -->
-
-
 
 <section id="resume-form" class="py-8">
     <div class="container mx-auto">
@@ -103,7 +100,7 @@
 </section>
 
 
-@section('scripts')
+
 <script>
     document.getElementById('add-education').addEventListener('click', function() {
         const educationSection = document.getElementById('education-section');

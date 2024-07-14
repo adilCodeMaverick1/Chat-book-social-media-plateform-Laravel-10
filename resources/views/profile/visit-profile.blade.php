@@ -99,13 +99,23 @@
                   <ul>
                     <li>
                       <i class="fa fa-image fa-lg"></i>
-                      <label class="btn btn-outline-danger btn-sm ">
-                        <input type="file" name="image">
+                      <label class="btn btn-outline-primary btn-sm ">
+                        <div class="input-div">
+                          <input class="input" name="image" type="file">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon">
+                            <polyline points="16 16 12 12 8 16"></polyline>
+                            <line y2="21" x2="12" y1="12" x1="12"></line>
+                            <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                            <polyline points="16 16 12 12 8 16"></polyline>
+                          </svg>
+                        </div>
                       </label>
+                      <button type="submit" class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                        <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                        Upload Image
+                      </button>
                     </li>
-                    <li>
-                      <button type="submit" class="btn btn-outline-primary mt-1">uploadImage</button>
-                    </li>
+
                   </ul>
 
                 </form>
@@ -118,10 +128,17 @@
             <div class="card mb-4 mb-lg-0">
               @if(auth()->user()->id == $user->id)
               @if ($socialLinks == null)
-              <a href="/social-links/create" class="btn btn-primary">Create links</a>
+              <a href="/social-links/create" ><button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                  <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                 Create Social links
+                </button></a>
 
               @else
-              <a href="/social-links/{{$socialLinks->id}}" class="btn btn-primary">Edit links</a>
+              <a href="/social-links/{{$socialLinks->id}}" ><button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                  <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                  Edit Social links
+
+                </button></a>
 
               @endif
               @endif
@@ -165,6 +182,13 @@
         <div class="col-lg-8 group cursor-pointer group-hover:duration-500 overflow-hidden relative  rounded-2xl shadow-inner shadow-gray-50 flex flex-col justify-around items-center w-90 h-100 bg-neutral-900 text-gray-50" style="background-color:rgb(12 68 61);">
           <section id="resume" class="resume section py-8">
             <div class="container mx-auto section-title">
+              <a href="{{ route('resume.edit', ['user' => $user->id]) }}">
+                <button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                  <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                  Update Resume
+                </button>
+              </a>
+
               <h2 class="text-4xl font-bold text-center">Resume</h2>
               <p class="text-center text-lg mt-4">{{ $user->additionalInfo->summary ?? 'Not provided' }}</p>
             </div>
@@ -174,7 +198,7 @@
                 <div>
                   <h3 class="resume-title text-2xl font-semibold mb-4">Summary</h3>
                   <div class="resume-item pb-0 bg-white p-4 rounded-lg shadow-lg">
-                    <h4 class="text-xl text-dark" >{{ $user->name }}</h4>
+                    <h4 class="text-xl text-dark">{{ $user->name }}</h4>
                     <p class="text-black-600"><em>{{ $user->additionalInfo->summary ?? 'Not provided' }}</em></p>
                     <ul class="mt-4">
                       <li class="mb-2">{{ $user->address }}</li>
