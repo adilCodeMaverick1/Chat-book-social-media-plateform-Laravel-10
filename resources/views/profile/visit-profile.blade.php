@@ -162,7 +162,7 @@
 
         </div>
         @else
-        <div class="col-lg-8 group cursor-pointer group-hover:duration-500 overflow-hidden relative  rounded-2xl shadow-inner shadow-gray-50 flex flex-col justify-around items-center w-90 h-100 bg-neutral-900 text-gray-50">
+        <div class="col-lg-8 group cursor-pointer group-hover:duration-500 overflow-hidden relative  rounded-2xl shadow-inner shadow-gray-50 flex flex-col justify-around items-center w-90 h-100 bg-neutral-900 text-gray-50" style="background-color:rgb(12 68 61);">
           <section id="resume" class="resume section py-8">
             <div class="container mx-auto section-title">
               <h2 class="text-4xl font-bold text-center">Resume</h2>
