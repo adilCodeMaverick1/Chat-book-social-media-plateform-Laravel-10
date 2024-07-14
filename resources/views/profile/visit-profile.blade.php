@@ -50,7 +50,26 @@
           </nav>
         </div>
       </div>
-
+      <div class="flex flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50 notification-panel" style="display: none;">
+        <div class="succsess-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-lg bg-[#232531] px-[10px]">
+          <div class="flex gap-2">
+            <div class="text-[#2b9875] bg-white/5 backdrop-blur-xl p-1 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-white">done successfully :)</p>
+              <p class="text-gray-500">This is the description section</p>
+            </div>
+          </div>
+          <button class="text-gray-600 text-gray-600 hover:bg-white/5 p-1 rounded-md transition-colors ease-linear">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
       <div class="row">
         <div class="col-lg-4">
           <div class="card mb-4">
@@ -99,16 +118,11 @@
                   <ul>
                     <li>
                       <i class="fa fa-image fa-lg"></i>
-                      <label class="btn btn-outline-primary btn-sm ">
-                        <div class="input-div">
-                          <input class="input" name="image" type="file">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon">
-                            <polyline points="16 16 12 12 8 16"></polyline>
-                            <line y2="21" x2="12" y1="12" x1="12"></line>
-                            <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-                            <polyline points="16 16 12 12 8 16"></polyline>
-                          </svg>
-                        </div>
+                      <label>
+
+                        <input class="flex w-full rounded-md border border-blue-300 border-input bg-white text-sm text-gray-400 file:border-0 file:bg-blue-600 file:text-white file:text-sm file:font-medium" type="file" id="picture" name="image" />
+
+
                       </label>
                       <button type="submit" class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                         <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
@@ -128,13 +142,13 @@
             <div class="card mb-4 mb-lg-0">
               @if(auth()->user()->id == $user->id)
               @if ($socialLinks == null)
-              <a href="/social-links/create" ><button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+              <a href="/social-links/create"><button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                   <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-                 Create Social links
+                  Create Social links
                 </button></a>
 
               @else
-              <a href="/social-links/{{$socialLinks->id}}" ><button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+              <a href="/social-links/{{$socialLinks->id}}"><button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                   <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
                   Edit Social links
 
@@ -182,12 +196,23 @@
         <div class="col-lg-8 group cursor-pointer group-hover:duration-500 overflow-hidden relative  rounded-2xl shadow-inner shadow-gray-50 flex flex-col justify-around items-center w-90 h-100 bg-neutral-900 text-gray-50" style="background-color:rgb(12 68 61);">
           <section id="resume" class="resume section py-8">
             <div class="container mx-auto section-title">
+              @if ($user->additionalInfo == '')
+              <a href="{{ route('resume.create') }}">
+                <button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
+                  <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+                  Create Resume
+                </button>
+              </a>
+              @else
               <a href="{{ route('resume.edit', ['user' => $user->id]) }}">
                 <button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
                   <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
                   Update Resume
                 </button>
               </a>
+              @endif
+
+
 
               <h2 class="text-4xl font-bold text-center">Resume</h2>
               <p class="text-center text-lg mt-4">{{ $user->additionalInfo->summary ?? 'Not provided' }}</p>
@@ -242,6 +267,8 @@
     </div>
 
   </section>
+
+
 </x-app-layout>
 <script>
   //follow
@@ -318,13 +345,13 @@
         processData: false, // Prevent jQuery from automatically processing the data
         contentType: false, // Prevent jQuery from setting the content type
         success: function(response) {
-          console.log(response); // Log the response from the server
+          //console.log(response); // Log the response from the server
           if (response.success) {
             // Show the notification panel
             $('.notification-panel').css('display', 'block');
             setTimeout(function() {
               $('.notification-panel').css('display', 'none');
-            }, 3000); // Hide the panel after 3 seconds
+            }, 3000)
           }
         },
         error: function(xhr, status, error) {
