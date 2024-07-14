@@ -97,6 +97,23 @@ public function socialLinks()
 {
     return $this->hasOne(SocialLink::class);
 }
+public function educations()
+{
+    return $this->hasMany(Education::class);
+}
 
+public function experiences()
+{
+    return $this->hasMany(Experience::class);
+}
+
+public function summary()
+{
+    return $this->hasOne(Summary::class);
+}
+public function additionalInfo()
+{
+    return $this->hasOne(UserAdditionalInfo::class);
+}
 
 }

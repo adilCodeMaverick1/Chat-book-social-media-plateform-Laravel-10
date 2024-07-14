@@ -17,23 +17,23 @@
   </div> -->
   @if(auth()->user()->id == $user->id)
   <div class="container">
-        <h1>Virtual Currency</h1>
-        <p>
-    Your current balance:
-    <span>{{ auth()->user()->virtualCurrency->balance }}</span>
-    <i class="fas fa-coins" style="color: gold;"></i>
-</p>
+    <h1>Virtual Currency</h1>
+    <p>
+      Your current balance:
+      <span>{{ auth()->user()->virtualCurrency->balance }}</span>
+      <i class="fas fa-coins" style="color: gold;"></i>
+    </p>
 
-        @if(auth()->user()->virtualCurrency->expiry_date && auth()->user()->virtualCurrency->expiry_date->gt(now()))
-            <p>Your verification mark is active.</p>
-        @else
-            <form method="POST" action="{{ route('purchase-verification-mark') }}">
-                @csrf
-                <button type="submit" class="btn btn-primary text-dark" >Purchase Verification Mark</button>
-            </form>
-        @endif
-    </div>
+    @if(auth()->user()->virtualCurrency->expiry_date && auth()->user()->virtualCurrency->expiry_date->gt(now()))
+    <p>Your verification mark is active.</p>
+    @else
+    <form method="POST" action="{{ route('purchase-verification-mark') }}">
+      @csrf
+      <button type="submit" class="btn btn-primary text-dark">Purchase Verification Mark</button>
+    </form>
     @endif
+  </div>
+  @endif
 
 
   <!-- Add more profile details here -->
@@ -65,15 +65,15 @@
               @endif
 
               <h5 class="my-3">
-              <h1>
-    {{ $user->name }} 
-    @if ($user->virtualCurrency->expiry_date && $user->virtualCurrency->expiry_date->gt(now()))
-        <i class="fa-solid fa-check-circle text-primary" title="Verified"></i>
-    @endif
-    
-</h1>
+                <h1>
+                  {{ $user->name }}
+                  @if ($user->virtualCurrency->expiry_date && $user->virtualCurrency->expiry_date->gt(now()))
+                  <i class="fa-solid fa-check-circle text-primary" title="Verified"></i>
+                  @endif
 
-</h5>
+                </h1>
+
+              </h5>
 
               <p class="text-muted mb-1">Full Stack Developer</p>
               <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
@@ -115,42 +115,42 @@
           </div>
           <div class="container mx-auto mt-10">
             <!-- edit and ceate links -->
-        <div class="card mb-4 mb-lg-0">
-          @if(auth()->user()->id == $user->id)
-          @if ($socialLinks == null)
-          <a href="/social-links/create" class="btn btn-primary">Create links</a>
+            <div class="card mb-4 mb-lg-0">
+              @if(auth()->user()->id == $user->id)
+              @if ($socialLinks == null)
+              <a href="/social-links/create" class="btn btn-primary">Create links</a>
 
-          @else
-          <a href="/social-links/{{$socialLinks->id}}" class="btn btn-primary">Edit links</a>
-            
-          @endif
-          @endif
-            <div class="card-body p-0">
+              @else
+              <a href="/social-links/{{$socialLinks->id}}" class="btn btn-primary">Edit links</a>
+
+              @endif
+              @endif
+              <div class="card-body p-0">
                 <ul class="list-group list-group-flush rounded-3">
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i class="fas fa-globe fa-lg text-warning"></i>
-                        <a class="mb-0" href="{{ $socialLinks->website ?? 'Not provided' }}">{{ $socialLinks->website ?? 'Not provided' }}</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i class="fab fa-github fa-lg" style="color: #333333;"></i>
-                        <a class="mb-0" href="{{ $socialLinks->github ?? 'Not provided' }}">{{ $socialLinks->github ?? 'Not provided' }}</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
-                        <a class="mb-0" href="{{ $socialLinks->twitter ?? 'Not provided' }}">{{ $socialLinks->twitter ?? 'Not provided' }}</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
-                        <a class="mb-0" href="">Instagram not available</a>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between align-items-center p-3">
-                        <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
-                        <a class="mb-0" href="{{ $socialLinks->facebook ?? 'Not provided' }}">{{ $socialLinks->facebook ?? 'Not provided' }}</a>
-                    </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fas fa-globe fa-lg text-warning"></i>
+                    <a class="mb-0" href="{{ $socialLinks->website ?? 'Not provided' }}">{{ $socialLinks->website ?? 'Not provided' }}</a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                    <a class="mb-0" href="{{ $socialLinks->github ?? 'Not provided' }}">{{ $socialLinks->github ?? 'Not provided' }}</a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                    <a class="mb-0" href="{{ $socialLinks->twitter ?? 'Not provided' }}">{{ $socialLinks->twitter ?? 'Not provided' }}</a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                    <a class="mb-0" href="">Instagram not available</a>
+                  </li>
+                  <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                    <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                    <a class="mb-0" href="{{ $socialLinks->facebook ?? 'Not provided' }}">{{ $socialLinks->facebook ?? 'Not provided' }}</a>
+                  </li>
                 </ul>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
         </div>
         @if($user->private == 1 && $user->id != auth()->id())
 
@@ -162,107 +162,61 @@
 
         </div>
         @else
-        <div class="col-lg-8">
-          <div class="card mb-4">
-            <div class="card-body">
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Full Name</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{$user->name}}</p>
-                </div>
-              </div>
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Email</p>
-                </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">{{$user->email}}</p>
-                </div>
-              </div>
-              <hr>
+        <div class="col-lg-8 group cursor-pointer group-hover:duration-500 overflow-hidden relative  rounded-2xl shadow-inner shadow-gray-50 flex flex-col justify-around items-center w-90 h-100 bg-neutral-900 text-gray-50">
+          <section id="resume" class="resume section py-8">
+            <div class="container mx-auto section-title">
+              <h2 class="text-4xl font-bold text-center">Resume</h2>
+              <p class="text-center text-lg mt-4">{{ $user->additionalInfo->summary ?? 'Not provided' }}</p>
+            </div>
 
-              <hr>
+            <div class="container mx-auto mt-8">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                  <h3 class="resume-title text-2xl font-semibold mb-4">Summary</h3>
+                  <div class="resume-item pb-0 bg-white p-4 rounded-lg shadow-lg">
+                    <h4 class="text-xl text-dark" >{{ $user->name }}</h4>
+                    <p class="text-black-600"><em>{{ $user->additionalInfo->summary ?? 'Not provided' }}</em></p>
+                    <ul class="mt-4">
+                      <li class="mb-2">{{ $user->address }}</li>
+                      <li class="mb-2">{{ $user->phone }}</li>
+                      <li>{{ $user->email }}</li>
+                    </ul>
+                  </div>
 
-              <hr>
-              <div class="row">
-                <div class="col-sm-3">
-                  <p class="mb-0">Address</p>
+                  <h3 class="resume-title text-2xl font-semibold mt-8 mb-4">Education</h3>
+                  @foreach ($user->educations as $education)
+                  <div class="resume-item bg-white p-4 rounded-lg shadow-lg mb-4">
+                    <h4 class="text-xl  text-dark">{{ $education->degree }}</h4>
+                    <h5 class="text-gray-600">{{ $education->year }}</h5>
+                    <p><em>{{ $education->institution }}</em></p>
+                    <p>{{ $education->description }}</p>
+                  </div>
+                  @endforeach
                 </div>
-                <div class="col-sm-9">
-                  <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+
+                <div>
+                  <h3 class="resume-title text-2xl font-semibold mb-4">Professional Experience</h3>
+                  @foreach ($user->experiences as $experience)
+                  <div class="resume-item bg-white p-4 rounded-lg shadow-lg mb-4">
+                    <h4 class="text-xl text-dark">{{ $experience->title }}</h4>
+                    <h5 class="text-gray-600">{{ $experience->duration }}</h5>
+                    <p><em>{{ $experience->company }}</em></p>
+                    <ul class="mt-4">
+                      <li>{{ $experience->description }}</li>
+                    </ul>
+                  </div>
+                  @endforeach
                 </div>
               </div>
             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="card mb-4 mb-md-0">
-                <div class="card-body">
-                  <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                  </p>
-                  <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                  <div class="progress rounded" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                  <div class="progress rounded mb-2" style="height: 5px;">
-                    <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          </section>
 
         </div>
         @endif
 
       </div>
     </div>
-    
+
   </section>
 </x-app-layout>
 <script>

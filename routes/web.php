@@ -7,6 +7,7 @@ use App\Http\Controllers\VirtualCurrencyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NewsfeedController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ResumeController;
 
 use GuzzleHttp\Middleware;
 
@@ -57,8 +58,11 @@ Route::get('/unreadcount',function(){
 
 Route::get('/social-links/create', [UserController::class, 'create'])->name('social-links.create');
 Route::post('/social-links', [UserController::class, 'linkStore'])->name('social-links.store');
-Route::get('/social-links/{id}', [UserController::class, 'linkId'])->name('social-links.edit');
+Route::get('/social-links/{id}', [UserController::class, 'linkId'])->name('social-links.edit')->middleware('check.social.link.owner');;
 Route::put('/social-links/{id}', [UserController::class, 'update'])->name('social-links.update');
+
+Route::get('/resume/create', [ResumeController::class, 'create'])->name('resume.create');
+Route::post('/resume', [ResumeController::class, 'store'])->name('resume.store');
 });
 
 Route::middleware([
