@@ -60,7 +60,7 @@
                 </div>
                 <div class="description">
 
-                    <p>
+                    <p class="text-dark fw-bold">
                         {{$post->content}}
                     </p>
                     </p>
