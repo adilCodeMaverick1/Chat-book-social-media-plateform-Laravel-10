@@ -39,7 +39,7 @@
   <!-- Add more profile details here -->
   <section style="background-color: #eee;">
     <div class="container py-5">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col">
           <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
             <ol class="breadcrumb mb-0">
@@ -49,7 +49,7 @@
             </ol>
           </nav>
         </div>
-      </div>
+      </div> -->
       <div class="flex flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50 notification-panel" style="display: none;">
         <div class="succsess-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-lg bg-[#232531] px-[10px]">
           <div class="flex gap-2">
