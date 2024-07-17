@@ -24,7 +24,7 @@
                     <input type="text" name="address" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" value="{{ old('address', $user->additionalInfo->address) }}" required>
                 </div>
             </div>
-            
+
             <div class="form-group mb-4">
                 <label for="summary" class="block mb-2 text-sm font-medium text-gray-900">Summary</label>
                 <textarea name="summary" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>{{ old('summary', $user->additionalInfo->summary) }}</textarea>
@@ -34,6 +34,7 @@
             <div class="mb-4">
                 <h3 class="text-xl font-bold mb-2">Education</h3>
                 @foreach($user->educations as $education)
+                <input type="hidden" name="educations[{{ $loop->index }}][id]" value="{{ $education->id }}">
                 <div class="education-item mb-4 p-4 bg-gray-100 rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
                         <div>
@@ -61,6 +62,7 @@
             <div class="mb-4">
                 <h3 class="text-xl font-bold mb-2">Experience</h3>
                 @foreach($user->experiences as $experience)
+                <input type="hidden" name="experiences[{{ $loop->index }}][id]" value="{{ $experience->id }}">
                 <div class="experience-item mb-4 p-4 bg-gray-100 rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
                         <div>
@@ -84,13 +86,8 @@
                 @endforeach
             </div>
 
-            <div class="flex justify-center">
-                <button type="submit" class="flex items-center bg-lime-500 hover:bg-lime-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                    <svg viewBox="0 -0.5 25 25" height="20px" width="20px" xmlns="http://www.w3.org/2000/svg" class="mr-2">
-                        <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" d="M18.507 19.853V6.034C18.5116 5.49905 18.3034 4.98422 17.9283 4.60277C17.5532 4.22131 17.042 4.00449 16.507 4H8.50705C7.9721 4.00449 7.46085 4.22131 7.08577 4.60277C6.7107 4.98422 6.50252 5.49905 6.50705 6.034V19.853C6.50737 20.1208 6.59163 20.3816 6.7495 20.5988C6.90738 20.8159 7.1306 20.9784 7.38634 21.059C7.64208 21.1396 7.91612 21.1337 8.168 21.041L12.507 19.404L16.846 21.041C16.9365 21.0723 17.0312 21.0871 17.126 21.0854C17.3432 21.0854 17.5532 21.0009 17.7128 20.8477C17.8724 20.6945 17.9707 20.4855 17.989 20.2602L18.507 19.853Z"/>
-                    </svg>
-                    Update Resume
-                </button>
+            <div class="flex items-center justify-between">
+                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
             </div>
         </form>
     </div>

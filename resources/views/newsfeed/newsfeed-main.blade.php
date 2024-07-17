@@ -4,7 +4,7 @@
         <div class="friend-info">
             @if ($post->user->image == null)
             <figure>
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="" >
             </figure>
             @else
             <figure>

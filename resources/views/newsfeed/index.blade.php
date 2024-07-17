@@ -20,7 +20,7 @@
 										<div class="new-postbox">
 											<figure>
 												@if(auth()->user()->image != null)
-												<img src="{{ asset(auth()->user()->image) }}">
+												<img class="w-10 h-10 rounded" src="{{ asset(auth()->user()->image) }}" alt="Default avatar">
 												@else
 												<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp">
 												@endif

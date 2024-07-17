@@ -196,6 +196,9 @@
         <div class="col-lg-8 group cursor-pointer group-hover:duration-500 overflow-hidden relative  rounded-2xl shadow-inner shadow-gray-50 flex flex-col justify-around items-center w-90 h-100 bg-neutral-900 text-gray-50" style="background-color:rgb(12 68 61);">
           <section id="resume" class="resume section py-8">
             <div class="container mx-auto section-title">
+              @if (auth()->user()->id == $user->id)
+                
+              
               @if ($user->additionalInfo == '')
               <a href="{{ route('resume.create') }}">
                 <button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
@@ -211,7 +214,7 @@
                 </button>
               </a>
               @endif
-
+              @endif
 
 
               <h2 class="text-4xl font-bold text-center">Resume</h2>
@@ -250,9 +253,7 @@
                     <h4 class="text-xl text-dark">{{ $experience->title }}</h4>
                     <h5 class="text-gray-600">{{ $experience->duration }}</h5>
                     <p><em>{{ $experience->company }}</em></p>
-                    <ul class="mt-4">
-                      <li>{{ $experience->description }}</li>
-                    </ul>
+                    <p>{{ $experience->description }}</p>
                   </div>
                   @endforeach
                 </div>

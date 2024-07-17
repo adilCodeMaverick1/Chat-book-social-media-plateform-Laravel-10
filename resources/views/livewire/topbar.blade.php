@@ -78,6 +78,10 @@
 
 
         </ul>
+        <ul>
+            <li><a href="/user/{{auth()->user()->id}}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
+
+        </ul>
         <ul class="setting-area">
 
 
@@ -121,10 +125,9 @@
                 </div>
             </li>
             <li>
-                <a href="{{ route('chatify') }}" title="Messages">
-                    <i class="fa fa-comment" style="font-size: 25px;"></i>
-                    <span class="unread badge bg-danger rounded-pill text-white">{{ auth()->user()->getMessageCount() }}</span>
-                </a>
+              
+                <i class="fa fa-comment " data-ripple="" style="font-size: 25px;"></i>
+                <span class="badge bg-danger rounded-pill text-white bellcount">{{ auth()->user()->getMessageCount() }}</span>
 
                 <div class="dropdowns">
                     <span>{{ auth()->user()->getMessageCount() }}New Messages</span>
@@ -146,29 +149,25 @@
                 </div>
             </li>
 
+
             </li>
-            <li><a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user" style="font-size: 25px;"></i></a>
 
 
             </li>
         </ul>
         <div class="user-img">
 
-            @if(auth()->user()->image != null)
-            <img src="{{ asset(auth()->user()->image) }}" width="30px" height="10px">
-            @else
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" width="30px">
-            @endif
+       
+          
+          
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAACUCAMAAABV5TcGAAAAA1BMVEX///+nxBvIAAAAPklEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgIcBnKwAAXyxvCsAAAAASUVORK5CYII=" width="30px">
+           
 
 
-            <span class="status f-online"></span>
-            <div class="user-setting">
-
-
-
-            </div>
+            
+          
         </div>
-        <span class="fa-solid fa-bars main-menu" data-ripple=""></span>
+        <!-- <span class="fa-solid fa-bars main-menu" data-ripple=""></span> -->
     </div>
 </div><!-- topbar -->
 <div class="side-panel">
@@ -213,7 +212,7 @@
 
 
 
-    </script>
+
 
 
 

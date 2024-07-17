@@ -10,13 +10,19 @@
                     </a>
                 </div>
 
+
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('newsfeed') }}" :active="request()->routeIs('newsfeed')">
                         {{ __('Newsfeed') }}
                     </x-nav-link>
                 </div>
-                
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+
+                </div>
+
+
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
@@ -74,6 +80,16 @@
 
                 <!-- Settings Dropdown -->
                 <div class="ms-3 relative">
+                    @if(auth()->user()->image != null)
+                    <img class="w-10 h-10 rounded-full" src="{{ asset(auth()->user()->image) }}" alt="Rounded avatar">
+
+                    @else
+                    <img class="w-10 h-10 rounded-full" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="Rounded avatar">
+
+                    @endif
+                    <span class="status f-online"></span>
+                </div>
+                <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -81,7 +97,7 @@
                                 <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                             </button>
                             @else
-           <a href="{{ route('profile.show') }}" title="My Profile"><i class="fa fa-user " style="font-size: 25px;"></i></a>
+
 
                             <span class="inline-flex rounded-md">
                                 <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
@@ -105,6 +121,7 @@
                                 {{ __('Profile') }}
                             </x-dropdown-link>
 
+
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                             <x-dropdown-link href="{{ route('api-tokens.index') }}">
                                 {{ __('API Tokens') }}
@@ -123,6 +140,45 @@
                             </form>
                         </x-slot>
                     </x-dropdown>
+                </div>
+                <div class="ms-3 relative">
+                    <form method="post" id="profileForm">
+                        <div class="setting-row">
+                            <span>Private profile </span>
+                            <input type="checkbox" id="privateProfileSwitch" {{ auth()->user()->private == 1 ? 'checked' : '' }} />
+                            <label for="privateProfileSwitch" data-on-label="ON" data-off-label="OFF"></label>
+                        </div>
+                        <input type="hidden" id="userId" value="{{ auth()->user()->id }}">
+                    </form>
+
+                    <script>
+                        $(document).ready(function() {
+                            $('#privateProfileSwitch').change(function() {
+                                var isPrivate = this.checked ? 1 : 0;
+                                var userId = $('#userId').val();
+                                var token = $('meta[name="csrf-token"]').attr('content'); // Get CSRF token from meta tag
+
+                                $.ajax({
+                                    url: '/update-profile',
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': token // Include CSRF token in headers
+                                    },
+                                    data: {
+                                        _token: token, // Include CSRF token in form data
+                                        userId: userId,
+                                        isPrivate: isPrivate
+                                    },
+                                    success: function(response) {
+                                        console.log('Profile updated successfully');
+                                    },
+                                    error: function(xhr, status, error) {
+                                        console.error('Error updating profile:', error);
+                                    }
+                                });
+                            });
+                        });
+                    </script>
                 </div>
             </div>
 

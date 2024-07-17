@@ -73,65 +73,56 @@ class ResumeController extends Controller
     }
     public function update(Request $request, User $user)
 {
-    // Validate request
-    $request->validate([
+    $validatedData = $request->validate([
         'name' => 'required|string|max:255',
         'address' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
         'phone' => 'required|string|max:255',
-        'email' => 'required|string|email|max:255',
         'summary' => 'required|string',
-        'education' => 'array',
-        'education.*.degree' => 'required|string|max:255',
-        'education.*.school' => 'required|string|max:255',
-        'education.*.start_year' => 'required|integer',
-        'education.*.end_year' => 'nullable|integer',
-        'experience' => 'array',
-        'experience.*.title' => 'required|string|max:255',
-        'experience.*.company' => 'required|string|max:255',
-        'experience.*.start_year' => 'required|integer',
-        'experience.*.end_year' => 'nullable|integer',
+        'educations' => 'required|array',
+        'educations.*.id' => 'required',
+        'educations.*.degree' => 'required|string|max:255',
+        'educations.*.institution' => 'required|string|max:255',
+        'educations.*.year' => 'required|string|max:255',
+        'educations.*.description' => 'required|string',
+        'experiences' => 'required|array',
+        'experiences.*.id' => 'required',
+        'experiences.*.title' => 'required|string|max:255',
+        'experiences.*.company' => 'required|string|max:255',
+        'experiences.*.duration' => 'required|string|max:255',
+        'experiences.*.description' => 'required|string',
     ]);
 
-    // Update additional info
-    $user->additionalInfo()->updateOrCreate(
-        [],
-        [
-            'name' => $request->input('name'),
-            'address' => $request->input('address'),
-            'phone' => $request->input('phone'),
-            'email' => $request->input('email'),
-            'summary' => $request->input('summary'),
-        ]
-    );
+    // Update user information
+    $user->update($validatedData);
+    //dd($validatedData);
 
-    // Update educations
-    foreach ($request->input('education', []) as $educationData) {
-        $user->educations()->updateOrCreate(
-            ['id' => $educationData['id'] ?? null],
-            [
-                'degree' => $educationData['degree'],
-                'school' => $educationData['school'],
-                'start_year' => $educationData['start_year'],
-                'end_year' => $educationData['end_year'],
-            ]
-        );
+    // Update or create educations
+    foreach ($validatedData['educations'] as $educationData) {
+        $educationId = $educationData['id'] ?? null;
+        //dd($educationId);
+        if ($educationId) {
+            $user->educations()->where('id', $educationId)->update($educationData);
+        } else {
+            $user->educations()->create($educationData);
+        }
     }
 
-    // Update experiences
-    foreach ($request->input('experience', []) as $experienceData) {
-        $user->experiences()->updateOrCreate(
-            ['id' => $experienceData['id'] ?? null],
-            [
-                'title' => $experienceData['title'],
-                'company' => $experienceData['company'],
-                'start_year' => $experienceData['start_year'],
-                'end_year' => $experienceData['end_year'],
-            ]
-        );
+    // Update or create experiences
+    foreach ($validatedData['experiences'] as $experienceData) {
+        $experienceId = $experienceData['id'] ?? null;
+        //dd($experienceId);
+        if ($experienceId) {
+            $user->experiences()->where('id', $experienceId)->update($experienceData);
+        } else {
+            $user->experiences()->create($experienceData);
+        }
     }
 
-    return redirect()->route('newsfeed')->with('success', 'Resume updated successfully.');
+    return redirect()->route('newsfeed');
 }
+
+
 }
 
 
