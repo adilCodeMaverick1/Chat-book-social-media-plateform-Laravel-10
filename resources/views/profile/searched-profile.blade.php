@@ -1,5 +1,6 @@
 
 <x-app-layout>
+
 @if ($users->isEmpty())
         <div class="alert alert-warning text-center m-5" role="alert">
             No users found.

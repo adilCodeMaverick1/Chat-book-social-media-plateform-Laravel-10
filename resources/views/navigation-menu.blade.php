@@ -141,7 +141,7 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-                <div class="ms-3 relative">
+                <!-- <div class="ms-3 relative">
                     <form method="post" id="profileForm">
                         <div class="setting-row">
                             <span>Private profile </span>
@@ -179,7 +179,7 @@
                             });
                         });
                     </script>
-                </div>
+                </div> -->
             </div>
 
             <!-- Hamburger -->

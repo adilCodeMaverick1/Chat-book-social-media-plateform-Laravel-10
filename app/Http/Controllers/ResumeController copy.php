@@ -96,14 +96,7 @@ class ResumeController extends Controller
     // Update user information
     $user->update($validatedData);
     //dd($validatedData);
-    $user->additionalInfo()->updateOrCreate(
-        ['user_id' => $user->id],
-        [
-            'address' => $validatedData['address'],
-            'phone' => $validatedData['phone'],
-            'summary' => $validatedData['summary'],
-        ]
-    );
+
     // Update or create educations
     foreach ($validatedData['educations'] as $educationData) {
         $educationId = $educationData['id'] ?? null;

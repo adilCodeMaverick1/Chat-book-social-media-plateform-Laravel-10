@@ -47,6 +47,7 @@
 
                 </form>
             </div>
+            
         </div>
     </nav>
 </div><!-- responsive header -->
@@ -160,14 +161,14 @@
        
           
           
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAACUCAMAAABV5TcGAAAAA1BMVEX///+nxBvIAAAAPklEQVR4nO3BMQEAAADCoPVPbQwfoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgIcBnKwAAXyxvCsAAAAASUVORK5CYII=" width="30px">
+        <span class="fa-solid fa-bars main-menu" data-ripple=""></span>
            
 
 
             
           
         </div>
-        <!-- <span class="fa-solid fa-bars main-menu" data-ripple=""></span> -->
+        
     </div>
 </div><!-- topbar -->
 <div class="side-panel">
