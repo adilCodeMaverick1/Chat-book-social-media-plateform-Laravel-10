@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // Other middlewares...
         'check.social.link.owner' => \App\Http\Middleware\CheckSocialLinkOwner::class,
+        'check.user.owner' => \App\Http\Middleware\CheckUserOwner::class,
     ];
     
 }
