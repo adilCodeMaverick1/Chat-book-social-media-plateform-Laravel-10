@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\VirtualCurrency;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Models\Theme;
+use App\Models\UserTheme;
 
 class VirtualCurrencyController extends Controller
 {
@@ -22,7 +24,20 @@ class VirtualCurrencyController extends Controller
         return redirect()->back()->with('error', 'Insufficient virtual currency balance.');
     }
 }
+public function purchaseTheme(Request $request)
+    {
+        $user = auth()->user();
+        $theme = Theme::findOrFail($request->theme_id);
+        $themeCost = $theme->cost;
 
+        if ($user->virtualCurrency->balance >= $themeCost) {
+            $user->virtualCurrency->decrement('balance', $themeCost);
+            UserTheme::create(['user_id' => $user->id, 'theme_id' => $theme->id]);
+            return redirect()->back()->with('success', 'Theme purchased successfully.');
+        } else {
+            return redirect()->back()->with('error', 'Insufficient virtual currency balance.');
+        }
+    }
     
 
     
