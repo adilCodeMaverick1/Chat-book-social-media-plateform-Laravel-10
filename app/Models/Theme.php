@@ -15,5 +15,6 @@ class Theme extends Model
     {
         return $this->belongsToMany(User::class, 'user_themes');
     }
+    
 }
 

@@ -1,64 +1,70 @@
 <x-app-layout>
 
+@if(auth()->user()->id == $user->id)
+    <div class="container d-flex p-2">
+      <h1 class="p-1">Virtual Currency</h1>
+      <p>Your current balance: <span>{{ auth()->user()->virtualCurrency->balance }}</span> <i class="fas fa-coins" style="color: gold;"></i></p>
 
+      @if(auth()->user()->virtualCurrency->expiry_date && auth()->user()->virtualCurrency->expiry_date->gt(now()))
+        <p>Your verification mark is active.</p>
+      @else
+        <form method="POST" action="{{ route('purchase-verification-mark') }}">
+          @csrf
+          <button type="submit" class="btn btn-primary text-dark">Purchase Verification Mark</button>
+        </form>
+      @endif
 
-  <!-- <div class="container">
-    <h1>Virtual Currency</h1>
-    @if(auth()->user()->virtualCurrency)
-    <p>Your current balance: {{ auth()->user()->virtualCurrency->balance }}</p>
-    @else
-    <p>No virtual currency record found for the user.</p>
-    @endif
+      <!-- Button to trigger modal -->
+      <div class="ml-auto p-2">
+        <button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group" data-toggle="modal" data-target="#themeModal">
+          <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
+          Change resume Theme
+        </button>
+      </div>
+    </div>
+  @endif
 
-    <form method="POST" action="{{ route('purchase-verification-mark') }}">
-      @csrf
-      <button type="submit" class="btn btn-primary">Purchase Verification Mark</button>
-    </form>
-  </div> -->
-  @if(auth()->user()->id == $user->id)
-  <div class="container d-flex p-2">
-    <h1 class="p-1">Virtual Currency</h1>
-    <p>
-      Your current balance:
-      <span>{{ auth()->user()->virtualCurrency->balance }}</span>
-      <i class="fas fa-coins" style="color: gold;"></i>
-    </p>
-
-    @if(auth()->user()->virtualCurrency->expiry_date && auth()->user()->virtualCurrency->expiry_date->gt(now()))
-    <p>Your verification mark is active.</p>
-    @else
-    <form method="POST" action="{{ route('purchase-verification-mark') }}">
-      @csrf
-      <button type="submit" class="btn btn-primary text-dark">Purchase Verification Mark</button>
-    </form>
-    @endif
-
-
-
-    <div class="ml-auto p-2">
-    <button class="bg-green-950 text-green-400 border border-green-400 border-b-4 font-medium overflow-hidden relative px-4 py-2 rounded-md hover:brightness-150 hover:border-t-4 hover:border-b active:opacity-75 outline-none duration-300 group">
-  <span class="bg-green-400 shadow-green-400 absolute -top-[150%] left-0 inline-flex w-80 h-[5px] rounded-md opacity-50 group-hover:top-[150%] duration-500 shadow-[0_0_10px_10px_rgba(0,0,0,0.3)]"></span>
-Change resume Theme
-</button>
+  <!-- Theme Purchase Modal -->
+  <div class="modal fade" id="themeModal" tabindex="-1" role="dialog" aria-labelledby="themeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="themeModalLabel">Purchase Resume Theme</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="themes grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            @foreach ($themes as $theme)
+              <div class="theme p-4 rounded-lg shadow-lg" style="background-color: {{ $theme->color }};">
+                <h3 class="text-xl font-bold">{{ $theme->name }}</h3>
+                <p>{{ $theme->description }}</p>
+                <p>Cost: {{ $theme->cost }} points</p>
+                @if(auth()->user()->themes->contains($theme->id))
+                  <p class="text-success">Purchased</p>
+                @else
+                  <form action="{{ route('purchase.theme') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="theme_id" value="{{ $theme->id }}">
+                    <button type="submit" class="mt-2 bg-white text-black px-4 py-2 rounded-md">Purchase Theme</button>
+                  </form>
+                @endif
+              </div>
+            @endforeach
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" style="color: red;" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
-  @endif
 
 
   <!-- Add more profile details here -->
   <section style="background-color: #eee;">
     <div class="container py-5">
-      <!-- <div class="row">
-        <div class="col">
-          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="/newsfeed">Home</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('user.profile', ['id' => $user->id]) }}">User</a></li>
-              <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('user.profile', ['id' => $user->id]) }}"> Profile</a></li>
-            </ol>
-          </nav>
-        </div>
-      </div> -->
       <div class="flex flex-col gap-2 w-60 sm:w-72 text-[10px] sm:text-xs z-50 notification-panel" style="display: none;">
         <div class="succsess-alert cursor-default flex items-center justify-between w-full h-12 sm:h-14 rounded-lg bg-[#232531] px-[10px]">
           <div class="flex gap-2">

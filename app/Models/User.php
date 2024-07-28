@@ -116,4 +116,13 @@ public function additionalInfo()
     return $this->hasOne(UserAdditionalInfo::class);
 }
 
+public function themes()
+{
+    return $this->belongsToMany(Theme::class);
+}
+public function currentTheme()
+    {
+        return $this->themes()->latest()->first();
+    }
+
 }

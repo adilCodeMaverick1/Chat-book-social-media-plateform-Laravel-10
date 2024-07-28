@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Follower;
 use App\Models\SocialLink;
 use App\Models\Post;
+use App\Models\Theme;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -52,7 +53,9 @@ public function show($id)
         abort(404); // User not found, return 404 error
     }
     $socialLinks = $user->socialLinks;
-    return view('profile.visit-profile', ['user' => $user, 'socialLinks' => $socialLinks]);
+    $themes =Theme::all();
+
+    return view('profile.visit-profile', ['user' => $user, 'socialLinks' => $socialLinks,'themes'=>$themes]);
 }
 //follow
 public function follow(Request $request)

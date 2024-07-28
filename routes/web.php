@@ -28,6 +28,10 @@ Route::get('/', function () {
 
 Route::middleware(['auth'])->group(function () {
     //virtual creency
+    // In web.php
+
+    Route::post('/purchase-theme', [VirtualCurrencyController::class, 'purchaseTheme'])->name('purchase.theme');
+
     Route::get('/virtual-currency', [VirtualCurrencyController::class, 'index'])->name('virtual-currency');
 Route::post('/purchase-verification-mark', [VirtualCurrencyController::class, 'purchaseVerificationMark'])->name('purchase-verification-mark');
 
